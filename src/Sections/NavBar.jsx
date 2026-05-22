@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   UserIcon,
   Bars3Icon,
@@ -6,9 +8,9 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { useState } from "react";
-
 const links = [
+  "Cart",
+  "Search",
   "Headphones & Headsets",
   "Microphones",
   "Manufaktur",
@@ -20,9 +22,8 @@ const links = [
 
 const NavBar = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
-
   return (
-    <div className=" fixed top-0 left-0 w-full z-50 bg-grey-100 px-4 xl:px-0">
+    <div className=" fixed top-1 left-0 w-full z-50 bg-grey-100 px-4 xl:px-0">
       <nav className="w-full py-5  flex flex-center justify-between relative max-w-7xl mx-auto ">
         <div className="max-w-48 max-y-5.5 ">
           <a href="#">
@@ -77,6 +78,24 @@ const NavBar = () => {
           </button>
         </div>
       </nav>
+
+      {/* Dropdown lives here, inside the fixed wrapper */}
+      <div
+        className={`xl:hidden transition-all duration-500 ease-in-out overflow-hidden
+          ${navIsOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}
+      >
+        <div className="flex flex-col items-center gap-1 py-5">
+          {links.map((link) => (
+            <a
+              key={link}
+              href="#"
+              className="px-6 py-3 uppercase text-sm hover:text-orange-500 hover:bg-orange-50 transition-colors duration-200 text-center"
+            >
+              {link}
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

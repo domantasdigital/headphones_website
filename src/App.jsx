@@ -6,10 +6,7 @@ const App = () => {
     <main className="max-w-425 mx-auto min-h-screen flex flex-col">
       <NavBar />
       <Hero />
-      <div className="bg-red-500">another section a new onee</div>
-      <div className="bg-red-500">another section a new onee</div>
-      <div className="bg-red-500">another section a new onee</div>
-      <div className="bg-red-500">another section a new onee</div>
+      <div className="bg-red-500 min-h-1000">another section a new onee</div>
     </main>
   );
 };
