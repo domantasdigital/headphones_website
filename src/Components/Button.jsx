@@ -5,11 +5,16 @@ const variants = {
     font-sans
     text-[15px]
     font-semibold
-    px-[24px]
-    py-[12px]
-    min-w-[140px]
+    px-[20px]
+    py-[8px]
+
+    md:px-[24px]
+    md:py-[12px]
+    min-w-[81px]
+    md:min-w-[140px]
     bg-grey-100 
-    border-2 border-orange-500 
+    border-1
+    md:border-2 border-orange-500 
     text-orange-500
     hover:bg-orange-500 hover:text-grey-100 
     active:bg-orange-300 active:border-orange-300
