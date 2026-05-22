@@ -154,6 +154,7 @@ body {
     letter-spacing: 0.1em;
     font-weight: 600;
     font-style: var(--font-mono);
+    color: var(--color-grey-900);
   }
 }
 
