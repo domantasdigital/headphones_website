@@ -37,7 +37,7 @@ const Hero = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/Assets/Hero_Video_1.webm" type="video/webm" />
+            <source src="/Assets/Hero_Video_3.webm" type="video/webm" />
           </video>
         </div>
         <div ref={containerRef} className="  mt-10 flex flex-col items-center">
