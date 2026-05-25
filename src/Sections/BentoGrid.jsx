@@ -9,14 +9,14 @@ gsap.registerPlugin(Flip);
 const BentoGrid = () => {
   const [expanded, setExpanded] = useState(null);
   const containerRef = useRef(null);
-  const isTransitioning = useRef(false);
+  //   const isTransitioning = useRef(false);
 
   const handleMouseEnter = (e) => {
     if (expanded) return; // don't hover-animate when something is expanded
     gsap.to(e.currentTarget, {
       scale: 1.02,
       boxShadow: "0 0 0 3px #ED5A11",
-      duration: 0.3,
+      duration: 0.2,
       ease: "power2.out",
     });
   };
@@ -32,13 +32,15 @@ const BentoGrid = () => {
   };
 
   const handleExpand = (id) => {
-    // const box = containerRef.current.querySelector(`.${id}`);
+    const box = containerRef.current.querySelector(`.${id}`);
 
     // gsap.to(box, {
-    //   scale: 1,
+    //   scale: 1.02,
     //   boxShadow: "0 0 0 3px #ED5A11",
-    //   duration: 5,
+    //   duration: 0.3,
     // });
+    gsap.killTweensOf(box);
+    gsap.set(box, { scale: 1, boxShadow: "0 0 0 0px #ED5A11" });
 
     const state = Flip.getState(
       containerRef.current.querySelectorAll(".boxes"),
@@ -49,9 +51,8 @@ const BentoGrid = () => {
       duration: 1,
       absolute: true,
       ease: "power2.inOut",
-      //   scale: 1,
+
       boxShadow: "0 0 0 0px #FAF8F7",
-      clearProps: "scale,boxShadow",
 
       onLeave: (elements) =>
         gsap.to(elements, {
