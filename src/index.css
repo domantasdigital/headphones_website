@@ -9,6 +9,8 @@ body {
   overflow-x: hidden;
 }
 
+@custom-variant 3xl (@media (width >= 2000px));
+
 @theme {
   --font-display: "Montsterrat", sans-serif;
   --font-sans: "Geist", sans-serif;
