@@ -1,0 +1,59 @@
+.grid-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  grid-template-columns: 300px 300px 300px;
+  grid-template-rows: 300px 300px 300px;
+  gap: 1em;
+  grid-template-areas:
+    "box-1 box-2 box-2"
+    "box-1 box-3 box-4"
+    "box-5 box-5 box-6";
+  position: relative;
+
+  width: 632 px;
+  height: 632px;
+}
+
+.grid-container.has-expanded {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "main";
+}
+
+.boxes {
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.boxes.expanded {
+  inset: 0;
+  z-index: 10;
+  cursor: default;
+  position: absolute;
+}
+
+.boxes.collapsed {
+  pointer-events: none;
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
