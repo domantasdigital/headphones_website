@@ -1,0 +1,821 @@
+.grid-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  grid-template-columns: 272.16px 136.08px 272.16px;
+
+  grid-template-rows: 226.8px 226.8px 226.8px;
+
+  gap: 16px;
+  grid-template-areas:
+    "box-1 box-2 box-2"
+    "box-1 box-3 box-3"
+    "box-4 box-4 box-5";
+  position: relative;
+  height: 698.4px;
+  width: 698.4px;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .grid-container {
+    grid-template-columns: 362.88px 181.44px 362.88px;
+    grid-template-rows: 302.4px 302.4px 302.4px;
+    height: 931.2px;
+    width: 931.2px;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid-container {
+    display: none;
+  }
+}
+
+.grid-container.has-expanded {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "main";
+}
+
+.boxes {
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* BOX 1------------------------------------------ */
+
+.box-1 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(204, 204, 204, 0.2));
+
+  position: relative;
+}
+.box-1::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 222, 184, 0.25);
+  pointer-events: none;
+}
+.box-1 .card-image {
+  position: absolute;
+  top: 35px;
+  left: 125px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  transform: scale(1.6);
+  z-index: 1;
+  transition:
+    transform 0.9s ease-in-out,
+    top 0.9s ease-in-out,
+    left 0.9s ease-in-out;
+}
+.box-1.expanded .card-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-2%, -50%) scale(1);
+}
+
+.box-1 .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition:
+    transform 1s ease-in-out,
+    top 1s ease-in-out,
+    left 1s ease-in-out;
+}
+.box-1.expanded .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  transform: translate(120%, -2800%) scale(3);
+  color: #1a1a1a;
+}
+
+.box-1 .description {
+  position: absolute;
+  left: 40px;
+  top: 150px;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  opacity: 0;
+  max-width: 900px;
+  min-width: 300px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.box-1.expanded .description {
+  opacity: 1;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .box-1 .card-image {
+    position: absolute;
+    top: 35px;
+    left: 170px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    transform: scale(1.6);
+    z-index: 1;
+    transition:
+      transform 0.75s ease-in-out,
+      top 0.75s ease-in-out,
+      left 0.75s ease-in-out;
+  }
+  .box-1.expanded .card-image {
+    top: 50%;
+    left: 50%;
+    transform: translate(-2%, -50%) scale(1);
+  }
+
+  .box-1 .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    transition:
+      transform 1s ease-in-out,
+      top 1s ease-in-out,
+      left 1s ease-in-out;
+  }
+  .box-1.expanded .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    transform: translate(120%, -2600%) scale(3);
+    color: #1a1a1a;
+  }
+
+  .box-1 .description {
+    position: absolute;
+    left: 40px;
+    top: 180px;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    opacity: 0;
+    max-width: 900px;
+    min-width: 300px;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .box-1.expanded .description {
+    opacity: 1;
+  }
+}
+
+/* BOX 2------------------------------------------ */
+
+.box-2 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(167, 178, 191, 0.2));
+
+  position: relative;
+}
+.box-2::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(216, 237, 255, 0.25);
+  pointer-events: none;
+}
+.box-2 .card-image {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  transform: scale(1.2);
+
+  z-index: 1;
+  transition:
+    transform 0.75s ease-in-out,
+    top 0.75s ease-in-out,
+    left 0.75s ease-in-out;
+}
+.box-2.expanded .card-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%) scale(1);
+}
+
+.box-2 .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition:
+    transform 1s ease-in-out,
+    top 1s ease-in-out,
+    left 1s ease-in-out;
+}
+.box-2.expanded .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  transform: translate(120%, -2800%) scale(3);
+  color: #1a1a1a;
+}
+
+.box-2 .description {
+  position: absolute;
+  left: 50px;
+  top: 150px;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  opacity: 0;
+  max-width: 900px;
+  min-width: 300px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.box-2.expanded .description {
+  opacity: 1;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .box-2 .card-image {
+    position: absolute;
+    top: 40px;
+    left: 25px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    transform: scale(1.2);
+    z-index: 1;
+    transition:
+      transform 0.75s ease-in-out,
+      top 0.75s ease-in-out,
+      left 0.75s ease-in-out;
+  }
+  .box-2.expanded .card-image {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 40%) scale(1.2);
+  }
+
+  .box-2 .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    transition:
+      transform 1s ease-in-out,
+      top 1s ease-in-out,
+      left 1s ease-in-out;
+  }
+  .box-2.expanded .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    transform: translate(120%, -2600%) scale(3);
+    color: #1a1a1a;
+  }
+
+  .box-2 .description {
+    position: absolute;
+    left: 70px;
+    top: 180px;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    opacity: 0;
+    max-width: 900px;
+    min-width: 300px;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .box-2.expanded .description {
+    opacity: 1;
+  }
+}
+
+/* BOX 3----------------------------------------------- */
+
+.box-3 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(240, 239, 238, 0.7));
+
+  position: relative;
+}
+.box-3::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 245, 230, 0.7);
+  pointer-events: none;
+}
+.box-3 .card-image {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  transform: scale(1.2);
+
+  z-index: 1;
+  transition:
+    transform 0.75s ease-in-out,
+    top 0.75s ease-in-out,
+    left 0.75s ease-in-out;
+}
+.box-3.expanded .card-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%) scale(1);
+}
+
+.box-3 .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition:
+    transform 1s ease-in-out,
+    top 1s ease-in-out,
+    left 1s ease-in-out;
+}
+.box-3.expanded .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  transform: translate(120%, -2800%) scale(3);
+  color: #1a1a1a;
+}
+
+.box-3 .description {
+  position: absolute;
+  left: 45px;
+  top: 150px;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  opacity: 0;
+  max-width: 900px;
+  min-width: 300px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.box-3.expanded .description {
+  opacity: 1;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .box-3 .card-image {
+    position: absolute;
+    top: 40px;
+    left: 25px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    transform: scale(1.2);
+    z-index: 1;
+    transition:
+      transform 0.75s ease-in-out,
+      top 0.75s ease-in-out,
+      left 0.75s ease-in-out;
+  }
+  .box-3.expanded .card-image {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 40%) scale(1.2);
+  }
+
+  .box-3 .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    transition:
+      transform 1s ease-in-out,
+      top 1s ease-in-out,
+      left 1s ease-in-out;
+  }
+  .box-3.expanded .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    transform: translate(120%, -2600%) scale(3);
+    color: #1a1a1a;
+  }
+
+  .box-3 .description {
+    position: absolute;
+    left: 60px;
+    top: 180px;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    opacity: 0;
+    max-width: 900px;
+    min-width: 300px;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .box-3.expanded .description {
+    opacity: 1;
+  }
+}
+
+/* BOX 4----------------------------------------------- */
+
+.box-4 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(202, 238, 232, 0.3));
+
+  position: relative;
+}
+.box-4::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(230, 232, 253, 0.4);
+  pointer-events: none;
+}
+.box-4 .card-image {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  transform: scale(1.2);
+
+  z-index: 1;
+  transition:
+    transform 0.75s ease-in-out,
+    top 0.75s ease-in-out,
+    left 0.75s ease-in-out;
+}
+.box-4.expanded .card-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%) scale(1);
+}
+
+.box-4 .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition:
+    transform 1s ease-in-out,
+    top 1s ease-in-out,
+    left 1s ease-in-out;
+}
+.box-4.expanded .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  transform: translate(120%, -2800%) scale(3);
+  color: #1a1a1a;
+}
+
+.box-4 .description {
+  position: absolute;
+  left: 45px;
+  top: 150px;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  opacity: 0;
+  max-width: 900px;
+  min-width: 300px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.box-4.expanded .description {
+  opacity: 1;
+}
+
+.box-4 .unorderedList {
+  position: absolute;
+  color: #1a1a1a;
+  left: 50px;
+  top: 315px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.box-4.expanded .unorderedList {
+  opacity: 1;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .box-4 .card-image {
+    position: absolute;
+    top: 40px;
+    left: 25px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    transform: scale(1.2);
+    z-index: 1;
+    transition:
+      transform 0.75s ease-in-out,
+      top 0.75s ease-in-out,
+      left 0.75s ease-in-out;
+  }
+  .box-4.expanded .card-image {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 25%) scale(1.1);
+  }
+
+  .box-4 .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    transition:
+      transform 1s ease-in-out,
+      top 1s ease-in-out,
+      left 1s ease-in-out;
+  }
+  .box-4.expanded .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    transform: translate(120%, -2600%) scale(3);
+    color: #1a1a1a;
+  }
+
+  .box-4 .description {
+    position: absolute;
+    left: 60px;
+    top: 180px;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    opacity: 0;
+    max-width: 900px;
+    min-width: 300px;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .box-4.expanded .description {
+    opacity: 1;
+  }
+
+  .box-4 .unorderedList {
+    position: absolute;
+    color: #1a1a1a;
+    left: 50px;
+    top: 315px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transform: translate(30%, 200%) scale(1.5);
+    transition: opacity 0.2s ease-in-out;
+  }
+  .box-4.expanded .unorderedList {
+    opacity: 1;
+  }
+}
+
+/* BOX 5----------------------------------------------- */
+.box-5 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(227, 214, 214, 0.3));
+
+  position: relative;
+}
+.box-5::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 216, 216, 0.4);
+  pointer-events: none;
+}
+.box-5 .card-image {
+  position: absolute;
+  top: -25px;
+  left: 0px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  transform: scale(1);
+
+  z-index: 1;
+  transition:
+    transform 0.75s ease-in-out,
+    top 0.75s ease-in-out,
+    left 0.75s ease-in-out;
+}
+.box-5.expanded .card-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -35%) scale(0.8);
+}
+
+.box-5 .card-label {
+  position: absolute;
+  top: 1rem;
+  left: 6rem;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition:
+    transform 1s ease-in-out,
+    top 1s ease-in-out,
+    left 1s ease-in-out;
+}
+.box-5.expanded .card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 0;
+  margin: 0;
+  transform: translate(150%, 100%) scale(3);
+  color: #1a1a1a;
+}
+
+.box-5 .description {
+  position: absolute;
+  left: 55px;
+  top: 100px;
+  z-index: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #1a1a1a;
+  opacity: 0;
+  max-width: 1000px;
+  min-width: 500px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.box-5.expanded .description {
+  opacity: 1;
+}
+
+@media (min-width: 1600px) and (min-height: 1220px) {
+  .box-5 .card-image {
+    position: absolute;
+    top: -30px;
+    left: 0px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    transform: scale(1);
+    z-index: 1;
+    transition:
+      transform 0.75s ease-in-out,
+      top 0.75s ease-in-out,
+      left 0.75s ease-in-out;
+  }
+  .box-5.expanded .card-image {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -22%) scale(0.8);
+  }
+
+  .box-5 .card-label {
+    position: absolute;
+    top: 2rem;
+    left: 8rem;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    transition:
+      transform 1s ease-in-out,
+      top 1s ease-in-out,
+      left 1s ease-in-out;
+  }
+  .box-5.expanded .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 0;
+    margin: 0;
+    transform: translate(150%, 100%) scale(3);
+    color: #1a1a1a;
+  }
+
+  .box-5 .description {
+    position: absolute;
+    left: 70px;
+    top: 145px;
+    z-index: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    opacity: 0;
+    max-width: 1000px;
+    min-width: 500px;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .box-5.expanded .description {
+    opacity: 1;
+  }
+}
+
+/* End of boxes, continuing */
+
+.boxes:not(.expanded):not(.collapsed):hover {
+  z-index: 5;
+}
+
+.boxes.expanded {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: default;
+  width: 100%;
+  height: 100%;
+}
+
+.boxes.collapsed {
+  pointer-events: none;
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  z-index: 20;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

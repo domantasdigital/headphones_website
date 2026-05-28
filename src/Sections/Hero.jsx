@@ -29,7 +29,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="min-h-[50vh] md:min-h-[70vh] xl:min-h-[calc(100vh-64px)] mt-16  flex flex-col items-center">
+      <div className="min-h-[30vh] md:min-h-[70vh] xl:min-h-[calc(100vh-64px)] mt-16  flex flex-col items-center">
         <div className="max-w-310 3xl:max-w-none">
           <video
             autoPlay

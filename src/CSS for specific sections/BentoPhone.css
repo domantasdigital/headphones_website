@@ -1,0 +1,92 @@
+.pBox-1 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(204, 204, 204, 0.2));
+
+  position: relative;
+}
+.pBox-1::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 222, 184, 0.25);
+  pointer-events: none;
+}
+
+.pBox-1-img {
+  transform: scale(1.4);
+}
+
+.pBox-2 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(167, 178, 191, 0.2));
+
+  position: relative;
+}
+.pBox-2::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(216, 237, 255, 0.25);
+  pointer-events: none;
+}
+
+.pBox-2-img {
+  transform: translate(-2%, 20%) scale(3);
+}
+
+.pBox-3 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(240, 239, 238, 0.7));
+  position: relative;
+}
+.pBox-3::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 245, 230, 0.7);
+  pointer-events: none;
+}
+.pBox-3-img {
+  transform: translate(-10%, 10%) scale(2.9);
+}
+
+.pBox-4 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(202, 238, 232, 0.3));
+  position: relative;
+}
+.pBox-4::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(230, 232, 253, 0.4);
+  pointer-events: none;
+}
+.pBox-4-img {
+  transform: translate(0%, -35%) scale(2.5) rotate(-180deg);
+}
+.pBox-5 {
+  overflow: hidden;
+  background-color: lightblue;
+  background: linear-gradient(180deg, #ffffff 31%, rgba(227, 214, 214, 0.3));
+  position: relative;
+}
+.pBox-5::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* Fills the card completely */
+  z-index: 0; /* Sits on the bottom layer */
+  box-shadow: inset 0px 0px 90px 2px rgba(255, 216, 216, 0.4);
+  pointer-events: none;
+}
+.pBox-5-img {
+  transform: translate(0%, -20%) scale(1.9);
+}
