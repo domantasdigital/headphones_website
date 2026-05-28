@@ -236,6 +236,9 @@ const BentoGrid = () => {
 
   return (
     <div className="md:h-screen mt-15 md:mt-15 max-w-7xl w-full mx-auto px-2 ">
+      <h4 className="text-xl text-grey-900 md:text-4xl text-center mb-8 md:mb-15">
+        Tired of just <i>good enough?</i>
+      </h4>
       {/* The vertical grid layout for phones */}
 
       <div
