@@ -43,7 +43,7 @@ const Hero = () => {
         <div ref={containerRef} className="  mt-10 flex flex-col items-center">
           <div className="flex flex-center gap-3.75">
             <span className="buy-btn ">
-              <Button>Buy</Button>
+              <Button variant="outline">Buy</Button>
             </span>
 
             <em className="price text-grey-700">for 479€</em>

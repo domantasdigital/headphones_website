@@ -1,14 +1,21 @@
 import NavBar from "./Sections/NavBar.jsx";
 import Hero from "./Sections/Hero.jsx";
 import BentoGrid from "./Sections/BentoGrid.jsx";
+import FeelThePremium from "./Sections/FeelThePremium.jsx";
+import Tesla from "./Sections/Tesla.jsx";
+
+import TestingSec from "./Sections/TestingSec.jsx";
 
 const App = () => {
   return (
-    <main className="max-w-425 mx-auto min-h-screen flex flex-col">
+    <main className=" mx-auto min-h-screen flex flex-col">
       <NavBar />
       <Hero />
       <BentoGrid />
-      <div className="bg-red-500 min-h-1000">another section a new onee</div>
+      <FeelThePremium />
+      <Tesla />
+
+      <TestingSec />
     </main>
   );
 };
