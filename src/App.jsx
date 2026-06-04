@@ -3,6 +3,7 @@ import Hero from "./Sections/Hero.jsx";
 import BentoGrid from "./Sections/BentoGrid.jsx";
 import FeelThePremium from "./Sections/FeelThePremium.jsx";
 import Tesla from "./Sections/Tesla.jsx";
+import Interactive from "./Sections/Interactive.jsx";
 
 import TestingSec from "./Sections/TestingSec.jsx";
 
@@ -14,8 +15,8 @@ const App = () => {
       <BentoGrid />
       <FeelThePremium />
       <Tesla />
-
-      <TestingSec />
+      <Interactive />
+      {/* <TestingSec /> */}
     </main>
   );
 };
