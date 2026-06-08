@@ -20,7 +20,7 @@ const Interactive = () => {
       {/* Canvas — square, centered, responsive */}
       <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
         <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
-          <Interactive3DView />
+          <Interactive3DView activeId={activeId} />
         </div>
       </div>
 
