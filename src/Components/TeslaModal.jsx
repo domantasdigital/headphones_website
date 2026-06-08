@@ -93,37 +93,37 @@ const TeslaModal = ({ isOpen, onClose }) => {
     <div
       ref={backdropRef}
       onClick={onClose}
-      className="backdropBackground mt-5"
+      className="backdropBackground mt-7 "
     >
       <div
         ref={panelRef}
         onClick={(e) => e.stopPropagation()}
-        className="backdrop flex  flex-col flex-center w-[90vw] lg:w-[90vw] 2xl:w-[70vw]  max-w-300"
+        className="backdrop flex  flex-col flex-center w-[90vw] lg:w-[90vw] 2xl:w-[70vw]  max-w-300 min-h-[85vh]"
       >
         <button onClick={onClose} className="close-btn">
           ✕
         </button>
         <h1
           ref={firstText}
-          className=" text-[clamp(25px,8vw,80px)] text-grey-100 text-center"
+          className=" text-[clamp(25px,8vw,50px)] text-grey-100 text-center"
         >
           TESLA TECHNOLOGY
         </h1>
         <p
           ref={secondText}
-          className="text-[clamp(15px,4vw,27px)] text-center text-grey-100 font-medium! leading-[130%]! tracking-[-0.01em]! font-d mt-2"
+          className="text-[clamp(15px,4vw,20px)] text-center text-grey-100 font-medium! leading-[130%]! tracking-[-0.01em]! font-d mt-2"
         >
           The Acoustic Engine of Pure Emotion.
         </p>
         <h3
           ref={thirdText}
-          className=" text-center font-mono text-grey-100 text-[clamp(20px,4vw,32px)]  mt-15 md:mt-25 lg:mt-35 2xl:mt-30  font-semibold! tracking-widest!"
+          className=" text-center font-mono text-grey-100 text-[clamp(20px,2vw,25px)]  mt-20 md:mt-25 lg:mt-35 2xl:mt-30  font-semibold! tracking-widest!"
         >
           A Quantum Leap in Sound Engineering.
         </h3>
         <p
           ref={fourthText}
-          className="text-center max-w-[795px] mt-2 text-grey-100"
+          className="text-center max-w-[795px] text-[clamp(9px,5vw,16px)] mt-2 text-grey-100"
         >
           Traditional headphones struggle with distortion at high volumes.
           Beyerdynamic’s proprietary Tesla technology reengineers the acoustic
@@ -133,13 +133,13 @@ const TeslaModal = ({ isOpen, onClose }) => {
         </p>
         <h3
           ref={fifthText}
-          className="text-center font-mono text-grey-100 text-[29px] md:text-[29px] lg:text-[29px] 2xl:text-[32px] mt-15 md:mt-25 lg:mt-35 2xl:mt-30 font-semibold! tracking-widest!"
+          className="text-center font-mono text-grey-100  text-[clamp(20px,2vw,25px)] mt-20 md:mt-25 lg:mt-35 2xl:mt-30 font-semibold! tracking-widest!"
         >
           The Tesla Advantage:
         </h3>
         <p
           ref={sixthText}
-          className="text-center max-w-[795px] mt-2 mb-5 text-grey-100"
+          className="text-center max-w-[795px] text-[clamp(9px,5vw,16px)] mt-2 mb-5 text-grey-100"
         >
           <b>Zero Distortion:</b> The immense magnetic power drives the voice
           coil with absolute control, keeping your music perfectly clean and

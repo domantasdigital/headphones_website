@@ -57,7 +57,7 @@ const Tesla = () => {
       paddingRight: 0,
       opacity: 0.6,
       scale: 0,
-      y: -200,
+      y: -100,
     });
 
     gsap.set(text, { opacity: 0 });
@@ -66,7 +66,7 @@ const Tesla = () => {
       .timeline({
         scrollTrigger: {
           trigger: video.current,
-          start: "top 20%",
+          start: "bottom 100%",
           toggleActions: "play none none none",
         },
       })
@@ -74,7 +74,7 @@ const Tesla = () => {
         y: 0,
         opacity: 1,
         scale: 1,
-        duration: 1,
+        duration: 0.5,
         ease: "ease",
       })
       .to(btn, {
@@ -84,10 +84,10 @@ const Tesla = () => {
         borderRadius: "6px",
         paddingLeft: 24,
         paddingRight: 24,
-        duration: 1,
+        duration: 0.5,
         ease: "ease",
       })
-      .to(text, { opacity: 1, duration: 0.4, ease: "power2.out" });
+      .to(text, { opacity: 1, duration: 0.7, ease: "power2.InOut" });
   });
 
   return (
