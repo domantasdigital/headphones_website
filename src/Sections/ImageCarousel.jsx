@@ -9,20 +9,18 @@ const IMAGES = [
   { id: 4, bg: "#A78BFA", label: "05" },
 ];
 
-const DURATION = 2000; // ms per slide
-const ANIM_SECS = 0.55; // GSAP transition duration
+const DURATION = 7; // seconds
+const ANIM_SECS = 0.55;
 
-// Card sizing — percentages of container width
-const CARD_W_PCT = 0.72; // center card width  (72% of container)
-const CARD_RATIO = 9 / 16; // height / width ratio
-const SIDE_SCALE = 0.62; // side cards scale relative to center
-const SIDE_OFFSET = 0.62; // how far side cards shift (fraction of container)
+const CARD_W_PCT = 0.72;
+const CARD_RATIO = 9 / 16;
+const SIDE_SCALE = 0.62;
+const SIDE_OFFSET = 0.42;
 
 function wrap(i, len) {
   return ((i % len) + len) % len;
 }
 
-// Build slot configs from live container width
 function buildSlots(containerW) {
   const sideX = containerW * SIDE_OFFSET;
   return {
@@ -48,37 +46,27 @@ export default function ImageCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  // DOM refs
-  const trackRef = useRef(null); // the card track container
+  const trackRef = useRef(null);
   const cards = useRef([]);
   const barRef = useRef(null);
 
-  // Mutable state refs (safe to read inside rAF without stale closures)
   const curRef = useRef(0);
-  const pausedRef = useRef(false);
-  const animating = useRef(false);
-  const elapsed = useRef(0);
-  const lastTs = useRef(null);
-  const rafId = useRef(null);
-  const slotsRef = useRef(buildSlots(360)); // fallback until measured
-  const containerW = useRef(360);
-  const isInitialized = useRef(false);
+  const slotsRef = useRef(buildSlots(360));
+  const [trackHeight, setTrackHeight] = useState(300);
+
+  // Master GSAP timeline to control progress bar autoforwarding
+  const timelineRef = useRef(null);
 
   useEffect(() => {
     curRef.current = current;
   }, [current]);
-  useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
 
-  // ── Compute card size from container width ────────────────────────────────
   function getCardSize(w) {
     const cardW = w * CARD_W_PCT;
     const cardH = cardW * CARD_RATIO;
     return { cardW, cardH };
   }
 
-  // ── Apply pixel size to every card DOM node ───────────────────────────────
   function sizeCards(w) {
     const { cardW, cardH } = getCardSize(w);
     cards.current.forEach((el) => {
@@ -89,7 +77,6 @@ export default function ImageCarousel() {
     });
   }
 
-  // ── Position all cards for a given index ─────────────────────────────────
   function layoutAll(idx, slots) {
     const len = IMAGES.length;
     cards.current.forEach((el, i) => {
@@ -100,11 +87,8 @@ export default function ImageCarousel() {
     });
   }
 
-  // ── Advance one step ──────────────────────────────────────────────────────
+  // Pure advance function triggered directly by the timeline completion
   function advance() {
-    if (animating.current) return;
-    animating.current = true;
-
     const slots = slotsRef.current;
     const len = IMAGES.length;
     const cur = curRef.current;
@@ -119,77 +103,71 @@ export default function ImageCarousel() {
     setSlot(cards.current[next], slots, "center", true);
     setSlot(cards.current[nextNext], slots, "right", true);
 
-    setTimeout(
-      () => {
-        setCurrent(next);
-        animating.current = false;
-      },
-      ANIM_SECS * 1000 + 30,
-    );
+    // Sync state layout safely
+    setCurrent(next);
   }
 
-  // ── ResizeObserver — recompute everything when container resizes ──────────
+  // Handle Resize and Initial Layout
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
 
     const ro = new ResizeObserver((entries) => {
       const w = entries[0].contentRect.width;
-      containerW.current = w;
       const slots = buildSlots(w);
       slotsRef.current = slots;
+
       sizeCards(w);
       layoutAll(curRef.current, slots);
+      setTrackHeight(getCardSize(w).cardH + 80);
     });
 
     ro.observe(el);
     return () => ro.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ── rAF ticker ────────────────────────────────────────────────────────────
+  // Initialize and manage the progress bar timeline
   useEffect(() => {
-    function tick(ts) {
-      if (!pausedRef.current && !animating.current) {
-        if (lastTs.current == null) lastTs.current = ts;
-        elapsed.current += ts - lastTs.current;
-      }
-      lastTs.current = ts;
-
-      const pct = Math.min(elapsed.current / DURATION, 1);
-      if (barRef.current) barRef.current.style.width = `${pct * 100}%`;
-
-      if (pct >= 1) {
-        elapsed.current = 0;
-        lastTs.current = null;
+    // Create a timeline that autoadvances and fills up the bar
+    timelineRef.current = gsap.timeline({
+      repeat: -1,
+      onRepeat: () => {
         advance();
-      }
+      },
+    });
 
-      rafId.current = requestAnimationFrame(tick);
-    }
+    // Animate width from 0 to 100% smoothly over DURATION seconds
+    timelineRef.current.fromTo(
+      barRef.current,
+      { width: "0%" },
+      { width: "100%", duration: DURATION, ease: "none" },
+    );
 
-    rafId.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      if (timelineRef.current) timelineRef.current.kill();
+    };
   }, []);
+
+  // Handle Pause / Play state cleanly
+  useEffect(() => {
+    if (!timelineRef.current) return;
+    if (paused) {
+      timelineRef.current.pause();
+    } else {
+      timelineRef.current.play();
+    }
+  }, [paused]);
 
   function togglePause() {
-    setPaused((p) => {
-      if (p) lastTs.current = null;
-      return !p;
-    });
+    setPaused((p) => !p);
   }
 
-  // Track height = center card height + vertical breathing room
-  const trackH = getCardSize(containerW.current).cardH + 80;
-
   return (
-    <div className="relative flex flex-col items-center justify-center w-full min-h-screen bg-[#0e0e0e] overflow-hidden select-none">
-      {/* Card track — full width, cards are absolutely centred inside */}
+    <div className="relative flex flex-col items-center justify-center w-full  min-h-screen bg-[#0e0e0e] overflow-hidden select-none">
       <div
         ref={trackRef}
-        className="relative w-full flex items-center justify-center"
-        style={{ height: trackH }}
+        className="relative w-full max-w-[1700px] flex items-center justify-center"
+        style={{ height: trackHeight }}
       >
         {IMAGES.map((img, i) => (
           <div
@@ -202,12 +180,10 @@ export default function ImageCarousel() {
               background: img.bg,
               willChange: "transform, opacity",
               transformOrigin: "center center",
-              // initial size — ResizeObserver will correct immediately
               width: "72%",
               aspectRatio: "16/9",
             }}
           >
-            {/* Replace inner div with <img src={img.src} className="w-full h-full object-cover" /> */}
             <div className="w-full h-full flex items-center justify-center">
               <span
                 className="text-white/20 font-black leading-none"
@@ -229,13 +205,13 @@ export default function ImageCarousel() {
           <div
             ref={barRef}
             className="absolute left-0 top-0 h-full rounded-full bg-white/80"
-            style={{ width: "0%", transition: "none" }}
+            style={{ width: "0%" }}
           />
         </div>
 
         <button
           onClick={togglePause}
-          className="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 transition-all flex items-center justify-center flex-shrink-0"
+          className="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 transition-all flex items-center justify-center cursor-pointer flex-shrink-0"
           aria-label={paused ? "Play" : "Pause"}
         >
           {paused ? (

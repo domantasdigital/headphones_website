@@ -5,8 +5,9 @@ import FeelThePremium from "./Sections/FeelThePremium.jsx";
 import Tesla from "./Sections/Tesla.jsx";
 import Interactive from "./Sections/Interactive.jsx";
 import ImageCarousel from "./Sections/ImageCarousel.jsx";
+import Faq from "./Sections/Faq.jsx";
 
-import TestingSec from "./Sections/TestingSec.jsx";
+// import TestingSec from "./Sections/TestingSec.jsx";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Tesla />
       <Interactive />
       <ImageCarousel />
+      <Faq />
       {/* <TestingSec /> */}
     </main>
   );
