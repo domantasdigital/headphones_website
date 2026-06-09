@@ -4,6 +4,7 @@ import BentoGrid from "./Sections/BentoGrid.jsx";
 import FeelThePremium from "./Sections/FeelThePremium.jsx";
 import Tesla from "./Sections/Tesla.jsx";
 import Interactive from "./Sections/Interactive.jsx";
+import ImageCarousel from "./Sections/ImageCarousel.jsx";
 
 import TestingSec from "./Sections/TestingSec.jsx";
 
@@ -16,6 +17,7 @@ const App = () => {
       <FeelThePremium />
       <Tesla />
       <Interactive />
+      <ImageCarousel />
       {/* <TestingSec /> */}
     </main>
   );

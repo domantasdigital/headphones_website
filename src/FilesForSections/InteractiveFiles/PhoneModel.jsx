@@ -80,7 +80,6 @@ export function PhoneModel({ visible }) {
     child.material.needsUpdate = true;
 
     if (name.includes("Base1") || name.includes("base1")) {
-      console.log("base1 is real");
       child.material = new THREE.MeshStandardMaterial({
         color: new THREE.Color("#F07305"),
         roughness: 0.3,
