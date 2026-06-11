@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,13 +8,32 @@ gsap.registerPlugin(ScrollTrigger);
 const FeelThePremium = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
+  const feelPremiumVideoRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const video = feelPremiumVideoRef.current;
+          video.preload = "auto";
+          video.load();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" },
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useGSAP(() => {
     gsap.fromTo(
       "body",
       { backgroundColor: "#faf8f7" },
       {
-        backgroundColor: "#120805",
+        backgroundColor: "#0e0c0a",
+        immediateRender: false,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -43,7 +62,7 @@ const FeelThePremium = () => {
   });
 
   return (
-    <div className="  bg-grey-900">
+    <div className="  bg-[#0e0c0a]">
       <div ref={sectionRef} className="  max-w-425 mx-auto ">
         <h1
           ref={headingRef}
@@ -52,6 +71,8 @@ const FeelThePremium = () => {
           FEEL THE <br /> PREEEMIUM.
         </h1>
         <video
+          ref={feelPremiumVideoRef}
+          preload="none"
           autoPlay
           muted
           loop

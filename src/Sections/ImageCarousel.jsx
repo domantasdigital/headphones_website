@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const IMAGES = [
-  { id: 0, bg: "#3ABFF8", label: "01" },
-  { id: 1, bg: "#36D399", label: "02" },
-  { id: 2, bg: "#F87272", label: "03" },
-  { id: 3, bg: "#FBBD23", label: "04" },
-  { id: 4, bg: "#A78BFA", label: "05" },
+  { id: 0, src: "/Assets/waves.jpeg" },
+  { id: 1, src: "/Assets/dance.jpeg" },
+  { id: 2, src: "/Assets/double.jpeg" },
+  { id: 3, src: "/Assets/young.jpeg" },
+  { id: 4, src: "/Assets/stretch.jpeg" },
+  { id: 5, src: "/Assets/play.jpeg" },
 ];
 
 const DURATION = 7; // seconds
@@ -24,10 +25,27 @@ function wrap(i, len) {
 function buildSlots(containerW) {
   const sideX = containerW * SIDE_OFFSET;
   return {
-    left: { x: -sideX, scale: SIDE_SCALE, opacity: 1, zIndex: 1 },
-    center: { x: 0, scale: 1, opacity: 1, zIndex: 2 },
-    right: { x: sideX, scale: SIDE_SCALE, opacity: 1, zIndex: 1 },
-    hidden: { x: containerW, scale: SIDE_SCALE * 0.8, opacity: 0, zIndex: 0 },
+    left: {
+      x: -sideX,
+      scale: SIDE_SCALE,
+      opacity: 1,
+      zIndex: 1,
+      filter: "blur(10px)",
+    },
+    center: { x: 0, scale: 1, opacity: 1, zIndex: 2, filter: "blur(0px)" },
+    right: {
+      x: sideX,
+      scale: SIDE_SCALE,
+      opacity: 1,
+      zIndex: 1,
+      filter: "blur(10px)",
+    },
+    hidden: {
+      x: containerW,
+      scale: SIDE_SCALE * 0.8,
+      opacity: 0,
+      zIndex: 0,
+    },
     exit: { x: -containerW, scale: SIDE_SCALE * 0.8, opacity: 0, zIndex: 0 },
   };
 }
@@ -163,7 +181,7 @@ export default function ImageCarousel() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full  min-h-screen bg-[#0e0e0e] overflow-hidden select-none">
+    <div className="relative flex flex-col items-center justify-center w-full  min-h-screen bg-[#0e0c0a] overflow-hidden select-none">
       <div
         ref={trackRef}
         className="relative w-full max-w-[1700px] flex items-center justify-center"
@@ -182,16 +200,14 @@ export default function ImageCarousel() {
               transformOrigin: "center center",
               width: "72%",
               aspectRatio: "16/9",
+              boxShadow: "0 25px 60px rgba(0, 0, 0, 0.9)",
             }}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              <span
-                className="text-white/20 font-black leading-none"
-                style={{ fontSize: "clamp(40px, 15vw, 120px)" }}
-              >
-                {img.label}
-              </span>
-            </div>
+            <img
+              src={img.src}
+              alt={img.label}
+              className="w-full h-full object-cover"
+            />
           </div>
         ))}
       </div>

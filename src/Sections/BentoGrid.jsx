@@ -8,11 +8,11 @@ import "../CSS for specific sections/BentoPhone.css";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import card1 from "/Assets/Card_1.png";
-import card2 from "/Assets/Card_2.png";
-import card3 from "/Assets/Card_3.png";
-import card4 from "/Assets/Card_4.png";
-import card5 from "/Assets/Card_5.png";
+import card1 from "/Assets/Card_1.webp";
+import card2 from "/Assets/Card_2.webp";
+import card3 from "/Assets/Card_3.webp";
+import card4 from "/Assets/Card_4.webp";
+import card5 from "/Assets/Card_5.webp";
 
 import bContent from "../Components/BentoGrid_Section_Content.js";
 

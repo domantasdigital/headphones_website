@@ -91,7 +91,7 @@ const Tesla = () => {
   });
 
   return (
-    <div className=" lg:min-h-screen bg-grey-900">
+    <div className=" lg:min-h-screen bg-[#0e0c0a]">
       {mounted && <TeslaModal isOpen={modalOpen} onClose={handleClose} />}
       <div className="  max-w-425 mx-auto  lg:min-h-screen">
         <h1
