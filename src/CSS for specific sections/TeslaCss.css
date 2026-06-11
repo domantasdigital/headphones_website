@@ -1,0 +1,41 @@
+.close-btn {
+  position: absolute;
+  z-index: 20;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdropBackground {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 40; /* lower than navbar */
+  opacity: 0;
+  overflow-y: auto;
+  padding-top: 65px;
+}
+
+.backdrop {
+  background: rgba(186, 67, 7, 0.35);
+  box-shadow: 0 4px 39px 14px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  padding: 3rem 1.5rem 1.5rem;
+  /* overflow-y: auto; */
+  color: #fff;
+  opacity: 0;
+}

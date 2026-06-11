@@ -1,21 +1,24 @@
 import { useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { flushSync } from "react-dom";
 import "../CSS for specific sections/BentoGridCss.css";
 import "../CSS for specific sections/BentoPhone.css";
 import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import card1 from "/Assets/Card_1.png";
-import card2 from "/Assets/Card_2.png";
-import card3 from "/Assets/Card_3.png";
-import card4 from "/Assets/Card_4.png";
-import card5 from "/Assets/Card_5.png";
+import card1 from "/Assets/Card_1.webp";
+import card2 from "/Assets/Card_2.webp";
+import card3 from "/Assets/Card_3.webp";
+import card4 from "/Assets/Card_4.webp";
+import card5 from "/Assets/Card_5.webp";
 
 import bContent from "../Components/BentoGrid_Section_Content.js";
 
 gsap.registerPlugin(Flip);
 gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 const BentoGrid = () => {
   const [expanded, setExpanded] = useState(null);
@@ -231,11 +234,38 @@ const BentoGrid = () => {
     }
   };
 
+  // Heading animation
+  const headingRef = useRef(null);
+  useGSAP(() => {
+    gsap.matchMedia().add("(min-width: 768px)", () => {
+      gsap.fromTo(
+        headingRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 80%",
+          },
+        },
+      );
+    });
+  }, []);
+
   const boxClass = (id) =>
     `boxes ${id} ${expanded === id ? "expanded" : ""} ${expanded && expanded !== id ? "collapsed" : ""}`;
 
   return (
     <div className="md:h-screen mt-15 md:mt-15 max-w-7xl w-full mx-auto px-2 ">
+      <h4
+        ref={headingRef}
+        className="text-xl text-grey-900 md:text-4xl text-center mb-8 md:mb-15"
+      >
+        Tired of just <i>good enough?</i>
+      </h4>
       {/* The vertical grid layout for phones */}
 
       <div

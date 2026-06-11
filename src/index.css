@@ -3,7 +3,7 @@
 html,
 body {
   width: 100%;
-  background-color: var(--color-grey-100);
+  background-color: #faf8f7;
   color: white;
   scroll-behavior: smooth;
   overflow-x: hidden;
