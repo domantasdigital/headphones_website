@@ -1,30 +1,12 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useRef } from "react";
 import InteractiveButtons from "../FilesForSections/InteractiveFiles/InteractiveButtons.jsx";
 import features from "../FilesForSections/InteractiveFiles/ButtonsCopy.js";
-
-const Interactive3DView = lazy(
-  () => import("../FilesForSections/InteractiveFiles/Interactive3DView.jsx"),
-);
+import Interactive3DView from "../FilesForSections/InteractiveFiles/Interactive3DView.jsx";
 
 const Interactive = () => {
   const [activeId, setActiveId] = useState(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
+
   const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "400px" },
-    );
-
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   const handleSelect = (id) => {
     setActiveId(activeId === id ? null : id);
@@ -44,22 +26,7 @@ const Interactive = () => {
         {/* Canvas */}
         <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
           <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
-            {shouldLoad ? (
-              <Suspense
-                fallback={
-                  <div className="w-full h-full bg-[#0e0c0a] flex flex-col items-center justify-center gap-4">
-                    <div className="w-8 h-8 rounded-full border border-white/20 border-t-white/60 animate-spin" />
-                    <p className="text-white/40 text-sm font-mono tracking-wider text-center">
-                      3D model is loading, please wait a few seconds
-                    </p>
-                  </div>
-                }
-              >
-                <Interactive3DView activeId={activeId} />
-              </Suspense>
-            ) : (
-              <div className="w-full h-full bg-[#0e0c0a]" />
-            )}
+            <Interactive3DView activeId={activeId} />
           </div>
         </div>
       </div>

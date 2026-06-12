@@ -59,8 +59,8 @@ export function PhoneModel({ visible }) {
 
   const textures = useTexture(
     {
-      lensAlbedo: "/phoneTextures/LensAlbedo.webp",
-      screenAlbedo: "/phoneTextures/ScreenAlbedo.webp",
+      lensAlbedo: "/phoneTextures/LensAlbedo.avif",
+      screenAlbedo: "/phoneTextures/ScreenAlbedo.avif",
     },
     (loadedTextures) => {
       Object.values(loadedTextures).forEach((t) => {
