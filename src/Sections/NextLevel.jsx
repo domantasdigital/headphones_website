@@ -1,9 +1,34 @@
 import Button from "../Components/Button.jsx";
+import { useRef, useEffect } from "react";
 
 const NextLevel = () => {
+  const videoRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const video = videoRef.current;
+          video.preload = "auto";
+          video.load();
+          video.play();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "100px" },
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
-      <div className="  mt-15 flex flex-col items-center bg-grey-100">
+      <div
+        ref={sectionRef}
+        className="  mt-15 flex flex-col items-center bg-grey-100"
+      >
         <h1 className="text-[30px] px-5 sm:text-[42px]   lg:text-[61px] font-extrabold text-center">
           READY TO GO <span className="text-orange-500">NEXT LEVEL?</span>
         </h1>
@@ -20,7 +45,7 @@ const NextLevel = () => {
           </a>
         </div>
         <div>
-          <video autoPlay muted playsInline>
+          <video ref={videoRef} muted preload="none" playsInline>
             <source src="/Assets/RTMAC.webm" type="video/webm" />
           </video>
         </div>

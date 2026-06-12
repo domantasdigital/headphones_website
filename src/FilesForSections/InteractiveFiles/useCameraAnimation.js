@@ -33,7 +33,7 @@ function useCameraAnimation(cameraControlsRef) {
       z: state.target[2],
       duration: 3,
       ease: "power2.inOut",
-      onUpdate: () => cameraControlsRef.current.update(),
+      onUpdate: () => cameraControlsRef.current?.update(), // 👈 optional chaining
     });
   };
 

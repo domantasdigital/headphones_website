@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 const Tesla = () => {
   const headingRef = useRef(null);
   const btnRef = useRef(null);
-  const video = useRef(null);
+  const videoRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -26,6 +27,24 @@ const Tesla = () => {
     setModalOpen(false);
     setTimeout(() => setMounted(false), 500); // match timeline duration
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const video = videoRef.current;
+          video.preload = "auto";
+          video.load();
+          video.play();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "100px" },
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -65,7 +84,7 @@ const Tesla = () => {
     gsap
       .timeline({
         scrollTrigger: {
-          trigger: video.current,
+          trigger: videoRef.current,
           start: "bottom 100%",
           toggleActions: "play none none none",
         },
@@ -91,24 +110,24 @@ const Tesla = () => {
   });
 
   return (
-    <div className=" lg:min-h-screen bg-[#0e0c0a]">
+    <div ref={sectionRef} className=" lg:min-h-screen bg-[#0e0c0a]">
       {mounted && <TeslaModal isOpen={modalOpen} onClose={handleClose} />}
       <div className="  max-w-425 mx-auto  lg:min-h-screen">
         <h1
           ref={headingRef}
-          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px] mt-22.5 ml-5 sm:ml-10 md:ml-20 lg:ml-25  "
+          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px] mt-22.5 ml-5 sm:ml-10 md:ml-20 lg:ml-25  mb-12 "
         >
           BEHOLD THE <br /> TESLA TECHNOLOGY.
         </h1>
         <video
-          ref={video}
-          autoPlay
+          ref={videoRef}
+          preload="none"
           muted
           loop
           playsInline
-          className="w-full h-full object-cover md:-translate-y-15"
+          className="w-full h-full object-cover md:-translate-y-15 mb-4"
         >
-          <source src="/Assets/Tesla.webm" type="video/webm" />
+          <source src="/Assets/Tesla11.webm" type="video/webm" />
         </video>
         <div className="flex flex-center mx-5  md:mx-0  md:-translate-y-22 lg:-translate-y-35  ">
           <Button ref={btnRef} onClick={handleOpen} variant="fullGlass">
