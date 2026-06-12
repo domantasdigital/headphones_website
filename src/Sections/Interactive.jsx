@@ -31,34 +31,36 @@ const Interactive = () => {
   };
 
   return (
-    <div
-      ref={sectionRef}
-      className="bg-[#0e0c0a] w-full lg:max-w-300 3xl:max-w-425 justify-center mx-auto flex flex-col lg:flex-row lg:h-[85vh]"
-    >
-      {/* Left — accordion buttons */}
-      <div className="hidden lg:flex flex-col justify-center w-[380px] shrink-0 p-8 border-r border-white/[0.08]">
-        <InteractiveButtons activeId={activeId} onSelect={handleSelect} />
-      </div>
+    <div className="bg-[#0e0c0a]">
+      <div
+        ref={sectionRef}
+        className="bg-[#0e0c0a] w-full lg:max-w-300 3xl:max-w-425 justify-center mx-auto flex flex-col lg:flex-row lg:h-[85vh]"
+      >
+        {/* Left — accordion buttons */}
+        <div className="hidden lg:flex flex-col justify-center w-[380px] shrink-0 p-8 border-r border-white/[0.08]">
+          <InteractiveButtons activeId={activeId} onSelect={handleSelect} />
+        </div>
 
-      {/* Canvas */}
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
-        <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
-          {shouldLoad ? (
-            <Suspense
-              fallback={
-                <div className="w-full h-full bg-[#0e0c0a] flex flex-col items-center justify-center gap-4">
-                  <div className="w-8 h-8 rounded-full border border-white/20 border-t-white/60 animate-spin" />
-                  <p className="text-white/40 text-sm font-mono tracking-wider text-center">
-                    3D model is loading, please wait a few seconds
-                  </p>
-                </div>
-              }
-            >
-              <Interactive3DView activeId={activeId} />
-            </Suspense>
-          ) : (
-            <div className="w-full h-full bg-[#0e0c0a]" />
-          )}
+        {/* Canvas */}
+        <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
+          <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
+            {shouldLoad ? (
+              <Suspense
+                fallback={
+                  <div className="w-full h-full bg-[#0e0c0a] flex flex-col items-center justify-center gap-4">
+                    <div className="w-8 h-8 rounded-full border border-white/20 border-t-white/60 animate-spin" />
+                    <p className="text-white/40 text-sm font-mono tracking-wider text-center">
+                      3D model is loading, please wait a few seconds
+                    </p>
+                  </div>
+                }
+              >
+                <Interactive3DView activeId={activeId} />
+              </Suspense>
+            ) : (
+              <div className="w-full h-full bg-[#0e0c0a]" />
+            )}
+          </div>
         </div>
       </div>
 

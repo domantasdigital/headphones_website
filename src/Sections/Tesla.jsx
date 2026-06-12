@@ -66,6 +66,14 @@ const Tesla = () => {
     // Button animation
     const btn = btnRef.current;
     const text = btn.querySelector("span");
+    const isDesktop = window.innerWidth >= 1024;
+
+    if (!isDesktop) {
+      // Just make sure it's fully visible, no animation
+      gsap.set(btn, { opacity: 1, scale: 1, y: 0 });
+      gsap.set(text, { opacity: 1 });
+      return;
+    }
 
     gsap.set(btn, {
       width: 40,
@@ -84,8 +92,8 @@ const Tesla = () => {
     gsap
       .timeline({
         scrollTrigger: {
-          trigger: videoRef.current,
-          start: "bottom 100%",
+          trigger: headingRef.current,
+          start: "top 150%",
           toggleActions: "play none none none",
         },
       })
@@ -94,19 +102,20 @@ const Tesla = () => {
         opacity: 1,
         scale: 1,
         duration: 0.5,
-        ease: "ease",
+        delay: 5,
+        ease: "power2.out",
       })
       .to(btn, {
         width: "auto",
         height: "auto",
-        minWidth: "auto", // restore it
+        minWidth: "auto",
         borderRadius: "6px",
         paddingLeft: 24,
         paddingRight: 24,
         duration: 0.5,
-        ease: "ease",
+        ease: "power2.out",
       })
-      .to(text, { opacity: 1, duration: 0.7, ease: "power2.InOut" });
+      .to(text, { opacity: 1, duration: 0.7, ease: "power2.inOut" });
   });
 
   return (

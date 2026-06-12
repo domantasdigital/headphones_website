@@ -27,7 +27,7 @@ const NextLevel = () => {
     <>
       <div
         ref={sectionRef}
-        className="  mt-15 flex flex-col items-center bg-grey-100"
+        className="  pt:10 flex flex-col items-center bg-grey-100"
       >
         <h1 className="text-[30px] px-5 sm:text-[42px]   lg:text-[61px] font-extrabold text-center">
           READY TO GO <span className="text-orange-500">NEXT LEVEL?</span>

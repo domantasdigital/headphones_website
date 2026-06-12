@@ -8,24 +8,38 @@ import ImageCarousel from "./Sections/ImageCarousel.jsx";
 import Faq from "./Sections/Faq.jsx";
 import NextLevel from "./Sections/NextLevel.jsx";
 import Footer from "./Sections/Footer.jsx";
+import Preloader from "./Sections/Prelaoder.jsx";
+import usePreloader from "./FilesForSections/PreloaderFiles/usePreloader.js";
 
-// import TestingSec from "./Sections/TestingSec.jsx";
+const CRITICAL_IMAGES = [
+  "/Assets/Beyerdynamic_2025_logo.svg", // replace with your actual paths
+  "/Assets/HeroVideo4.webm",
+  "/Assets/Card_1.webp",
+  "/Assets/Card_2.webp",
+  "/Assets/Card_3.webp",
+  "/Assets/Card_4.webp",
+  "/Assets/Card_5.webp",
+  // ...
+];
 
 const App = () => {
+  const { progress, done } = usePreloader(CRITICAL_IMAGES);
   return (
-    <main className=" mx-auto min-h-screen flex flex-col">
-      <NavBar />
-      <Hero />
-      <BentoGrid />
-      <FeelThePremium />
-      <Tesla />
-      <Interactive />
-      <ImageCarousel />
-      <Faq />
-      <NextLevel />
-      <Footer />
-      {/* <TestingSec /> */}
-    </main>
+    <>
+      <Preloader progress={progress} done={done} />
+      <main className=" mx-auto min-h-screen flex flex-col">
+        <NavBar />
+        <Hero />
+        <BentoGrid />
+        <FeelThePremium />
+        <Tesla />
+        <Interactive />
+        <ImageCarousel />
+        <Faq />
+        <NextLevel />
+        <Footer />
+      </main>
+    </>
   );
 };
 

@@ -259,7 +259,7 @@ const BentoGrid = () => {
     `boxes ${id} ${expanded === id ? "expanded" : ""} ${expanded && expanded !== id ? "collapsed" : ""}`;
 
   return (
-    <div className="md:h-full mt-15 md:mt-15 md:pb-20 max-w-7xl w-full mx-auto px-2  ">
+    <div className="md:h-full mt-15 md:mt-15 md:pb-40 max-w-7xl w-full mx-auto px-2  ">
       <h4
         ref={headingRef}
         className="text-xl text-grey-900 md:text-4xl text-center mb-8 md:mb-15"
