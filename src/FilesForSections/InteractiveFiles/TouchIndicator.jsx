@@ -81,7 +81,7 @@ export function TouchIndicator({ visible }) {
   });
 
   return (
-    <mesh position={[0.007, -0.0295, 0.16]}>
+    <mesh position={[-0.005, -0.0295, 0.16]}>
       <planeGeometry args={[0.1, 0.1]} />
       <meshBasicMaterial
         ref={matRef}
