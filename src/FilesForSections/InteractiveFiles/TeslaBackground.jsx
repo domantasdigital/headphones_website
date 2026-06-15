@@ -49,7 +49,7 @@ const WaveMaterial = shaderMaterial(
       float wave = sin(dist * 18.0 - uTime * 2.5) * 0.5 + 0.5;
 
       vec3 colorA = vec3(0.929, 0.353, 0.067); // #ED5A11 orange
-vec3 colorB = vec3(0.063, 0.714, 0.933); // #10B6EE blue
+vec3 colorB = vec3(0.0,0.0,0.0); // #0E0C0A blue
 
 
       float t1 = sin(uTime * 0.5 + dist * 6.0) * 0.5 + 0.5;
@@ -62,7 +62,7 @@ vec3 colorB = vec3(0.063, 0.714, 0.933); // #10B6EE blue
       color += vWaveHeight * 8.0;
 
       float vignette = 1.0 - smoothstep(0.1, 0.4, dist);
-vec3 edgeColor = vec3(0.071, 0.031, 0.020); // #120805
+vec3 edgeColor = vec3(0.055,0.047,0.039); // #120805
 color = mix(edgeColor, color, vignette);
 
       gl_FragColor = vec4(color, uOpacity);
