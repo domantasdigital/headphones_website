@@ -44,7 +44,7 @@ const NextLevel = () => {
             View pricing options
           </a>
         </div>
-        <div>
+        <div className="w-[200%] md:w-[150%] lg:w-300 mt-10 overflow-hidden ">
           <video ref={videoRef} muted preload="none" playsInline>
             <source src="/Assets/RTMAC.webm" type="video/webm" />
           </video>

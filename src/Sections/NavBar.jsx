@@ -23,7 +23,7 @@ const links = [
 const NavBar = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
   return (
-    <div className=" fixed top-0 pt-1 left-0 w-full z-50 bg-grey-100 px-4 xl:px-0">
+    <div className=" fixed top-0 pt-1 left-0 w-full z-9999 bg-grey-100 px-4 xl:px-0">
       <nav className="w-full py-5  flex flex-center justify-between relative max-w-7xl mx-auto ">
         <div className="max-w-48 max-y-5.5 ">
           <a href="#">

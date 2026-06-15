@@ -1,12 +1,30 @@
-import { useState, useRef } from "react";
+import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 import InteractiveButtons from "../FilesForSections/InteractiveFiles/InteractiveButtons.jsx";
 import features from "../FilesForSections/InteractiveFiles/ButtonsCopy.js";
-import Interactive3DView from "../FilesForSections/InteractiveFiles/Interactive3DView.jsx";
 
 const Interactive = () => {
   const [activeId, setActiveId] = useState(null);
+  const [Component, setComponent] = useState(null);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: "1500px",
+  });
 
-  const sectionRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!inView || Component) return;
+
+    Promise.resolve().then(() => setIsLoading(true));
+
+    import("../FilesForSections/InteractiveFiles/Interactive3DView.jsx").then(
+      (mod) => {
+        setComponent(() => mod.default);
+        setIsLoading(false);
+      },
+    );
+  }, [inView]);
 
   const handleSelect = (id) => {
     setActiveId(activeId === id ? null : id);
@@ -15,7 +33,7 @@ const Interactive = () => {
   return (
     <div className="bg-[#0e0c0a] pb-20 ">
       <div
-        ref={sectionRef}
+        ref={ref}
         className="bg-[#0e0c0a] w-full lg:max-w-350 3xl:max-w-425 justify-center mx-auto flex flex-col lg:flex-row lg:h-screen "
       >
         {/* Left — accordion buttons */}
@@ -25,8 +43,13 @@ const Interactive = () => {
 
         {/* Canvas */}
         <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
-          <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
-            <Interactive3DView activeId={activeId} />
+          <div className="w-full max-w-[min(80vw,75vh)] aspect-square relative">
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center text-white/50 text-sm text-center px-4">
+                The 3D model is loading, please wait a few seconds...
+              </div>
+            )}
+            {Component && <Component activeId={activeId} />}
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="min-h-[30vh] md:min-h-[70vh] xl:min-h-[calc(100vh-64px)] mt-16 flex flex-col items-center">
+      <div className="min-h-screen md:min-h-screen lg:min-h-[calc(100vh-64px)] pb-15 lg:pb-0 lg:mt-16 flex flex-col items-center justify-center">
         <div className="max-w-310 3xl:max-w-none">
           <video
             ref={videoRef}
@@ -50,7 +50,10 @@ const Hero = () => {
             <source src="/Assets/HeroVideo4.webm" type="video/webm" />
           </video>
         </div>
-        <div ref={containerRef} className="mt-10 flex flex-col items-center">
+        <div
+          ref={containerRef}
+          className="mt-10 md:mt-20 lg:mt-10 flex flex-col items-center"
+        >
           <div className="flex flex-center gap-3.75">
             <span className="buy-btn">
               <Button variant="outline">Buy</Button>

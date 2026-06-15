@@ -134,7 +134,7 @@ const Tesla = () => {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover md:-translate-y-15 mb-4"
+          className="w-full h-full object-cover  lg:-translate-y-15 mb-4"
         >
           <source src="/Assets/Tesla11.webm" type="video/webm" />
         </video>

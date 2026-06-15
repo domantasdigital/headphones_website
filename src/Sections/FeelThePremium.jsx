@@ -30,22 +30,36 @@ const FeelThePremium = () => {
   }, []);
 
   useGSAP(() => {
-    gsap.fromTo(
-      "body",
-      { backgroundColor: "#faf8f7" },
+    const mm = gsap.matchMedia();
+
+    // Background color animation
+    mm.add(
       {
-        backgroundColor: "#0e0c0a",
-        immediateRender: false,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "top 60%",
-          scrub: 1,
-        },
+        isDesktop: "(min-width: 768px)",
+        isMobile: "(max-width: 767px)",
+      },
+      (context) => {
+        const { isMobile } = context.conditions;
+
+        gsap.fromTo(
+          "body",
+          { backgroundColor: "#faf8f7" },
+          {
+            backgroundColor: "#0e0c0a",
+            immediateRender: false,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: isMobile ? "top 40%" : "top 80%",
+              end: isMobile ? "top 60%" : "top 60%",
+              scrub: 1,
+            },
+          },
+        );
       },
     );
 
+    // Heading animation (consistent for all devices)
     gsap.fromTo(
       headingRef.current,
       { opacity: 0, y: 20 },

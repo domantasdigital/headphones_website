@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, Suspense } from "react";
 import { useTexture, useGLTF, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -75,6 +75,7 @@ function Headphones({ activeId }) {
 
   return (
     <>
+      {/* <Suspense> */}
       <OrbitControls
         ref={cameraControlsRef}
         enablePan={false}
@@ -125,6 +126,7 @@ function Headphones({ activeId }) {
           <meshStandardMaterial map={textures.wiresAlbedo} />
         </mesh>
       </group>
+      {/* </Suspense> */}
     </>
   );
 }
