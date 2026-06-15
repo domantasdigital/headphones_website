@@ -75,7 +75,7 @@ export function PhoneModel({ visible }) {
   );
 
   return (
-    <group ref={modelRef}>
+    <group ref={modelRef} scale={[0, 0, 0]} position={[0.1, 1, 0]}>
       <mesh geometry={phoneModel.nodes.Base1.geometry}>
         <meshStandardMaterial color="#F07305" metalness={0.9} roughness={0.3} />
       </mesh>

@@ -6,12 +6,23 @@ import features from "../FilesForSections/InteractiveFiles/ButtonsCopy.js";
 const Interactive = () => {
   const [activeId, setActiveId] = useState(null);
   const [Component, setComponent] = useState(null);
-  const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "200px" });
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: "1500px",
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!inView || Component) return;
+
+    Promise.resolve().then(() => setIsLoading(true));
+
     import("../FilesForSections/InteractiveFiles/Interactive3DView.jsx").then(
-      (mod) => setComponent(() => mod.default),
+      (mod) => {
+        setComponent(() => mod.default);
+        setIsLoading(false);
+      },
     );
   }, [inView]);
 
@@ -32,7 +43,12 @@ const Interactive = () => {
 
         {/* Canvas */}
         <div className="flex-1 flex items-center justify-center p-6 lg:p-2">
-          <div className="w-full max-w-[min(80vw,75vh)] aspect-square">
+          <div className="w-full max-w-[min(80vw,75vh)] aspect-square relative">
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center text-white/50 text-sm text-center px-4">
+                The 3D model is loading, please wait a few seconds...
+              </div>
+            )}
             {Component && <Component activeId={activeId} />}
           </div>
         </div>
