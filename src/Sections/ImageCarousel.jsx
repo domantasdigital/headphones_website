@@ -181,7 +181,7 @@ export default function ImageCarousel() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full  min-h-screen bg-[#0e0c0a] overflow-hidden select-none">
+    <div className="relative flex flex-col items-center justify-center w-full  min-h-[70vh] lg:min-h-screen bg-[#0e0c0a] overflow-hidden select-none">
       <div
         ref={trackRef}
         className="relative w-full max-w-[1700px] flex items-center justify-center"
