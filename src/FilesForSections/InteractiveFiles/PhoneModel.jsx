@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 
 export function PhoneModel({ visible }) {
-  const { scene } = useGLTF("/models/PhoneModel2.glb");
+  const phoneModel = useGLTF("/models/PhoneModel2.glb");
   const modelRef = useRef();
 
   useEffect(() => {
@@ -74,42 +74,38 @@ export function PhoneModel({ visible }) {
     },
   );
 
-  scene.traverse((child) => {
-    if (!child.isMesh) return;
-    const name = child.name;
-    child.material.needsUpdate = true;
-
-    if (name.includes("Base1") || name.includes("base1")) {
-      child.material = new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#F07305"),
-        roughness: 0.3,
-        metalness: 0.9,
-      });
-    } else if (name.includes("Base2") || name.includes("base2")) {
-      child.material = new THREE.MeshStandardMaterial({});
-    } else if (name.includes("Base3") || name.includes("base3")) {
-      child.material = new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#F07305"),
-        roughness: 0.3,
-        metalness: 0.9,
-      });
-    } else if (name.includes("Base4") || name.includes("base4")) {
-      child.material = new THREE.MeshStandardMaterial({});
-    } else if (name.includes("Buttons") || name.includes("buttons")) {
-      child.material = new THREE.MeshStandardMaterial({});
-    } else if (name.includes("Lens") || name.includes("lens")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.lensAlbedo,
-      });
-    } else if (name.includes("Screen") || name.includes("screen")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.screenAlbedo,
-        emissiveMap: textures.screenAlbedo, // same texture drives the glow
-        emissive: new THREE.Color("#ffffff"), // color of the glow
-        emissiveIntensity: 0.5, // higher = brighter glow
-      });
-    }
-  });
-
-  return <primitive ref={modelRef} object={scene} scale={0} />;
+  return (
+    <group ref={modelRef}>
+      <mesh geometry={phoneModel.nodes.Base1.geometry}>
+        <meshStandardMaterial color="#F07305" metalness={0.9} roughness={0.3} />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Base2.geometry}>
+        <meshStandardMaterial color="#F07305" metalness={0.9} roughness={0.3} />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Base3.geometry}>
+        <meshStandardMaterial color="#F07305" metalness={0.9} roughness={0.3} />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Base4.geometry}>
+        <meshStandardMaterial
+          color="#000000FF"
+          metalness={0.9}
+          roughness={0.3}
+        />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Butttons.geometry}>
+        <meshStandardMaterial color="#F07305" metalness={0.9} roughness={0.3} />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Lens.geometry}>
+        <meshStandardMaterial map={textures.lensAlbedo} roughness={0.5} />
+      </mesh>
+      <mesh geometry={phoneModel.nodes.Screen.geometry}>
+        <meshStandardMaterial
+          map={textures.screenAlbedo}
+          emissiveMap={textures.screenAlbedo}
+          emissive="#ffffff"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+    </group>
+  );
 }

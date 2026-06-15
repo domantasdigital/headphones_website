@@ -13,13 +13,13 @@ const Interactive = () => {
   };
 
   return (
-    <div className="bg-[#0e0c0a]">
+    <div className="bg-[#0e0c0a] pb-20 ">
       <div
         ref={sectionRef}
-        className="bg-[#0e0c0a] w-full lg:max-w-300 3xl:max-w-425 justify-center mx-auto flex flex-col lg:flex-row lg:h-[85vh]"
+        className="bg-[#0e0c0a] w-full lg:max-w-350 3xl:max-w-425 justify-center mx-auto flex flex-col lg:flex-row lg:h-screen "
       >
         {/* Left — accordion buttons */}
-        <div className="hidden lg:flex flex-col justify-center w-[380px] shrink-0 p-8 border-r border-white/[0.08]">
+        <div className="hidden lg:flex flex-col  relative justify-center w-[380px] shrink-0 p-8 border-r border-white/[0.08] ">
           <InteractiveButtons activeId={activeId} onSelect={handleSelect} />
         </div>
 
