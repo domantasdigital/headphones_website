@@ -62,7 +62,7 @@ vec3 colorB = vec3(0.0,0.0,0.0); // #0E0C0A blue
       color += vWaveHeight * 8.0;
 
       float vignette = 1.0 - smoothstep(0.1, 0.4, dist);
-vec3 edgeColor = vec3(0.055,0.047,0.039); // #120805
+vec3 edgeColor = vec3(0.055,0.047,0.039); 
 color = mix(edgeColor, color, vignette);
 
       gl_FragColor = vec4(color, uOpacity);
