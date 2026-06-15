@@ -79,7 +79,7 @@ function Headphones({ activeId }) {
       <OrbitControls
         ref={cameraControlsRef}
         enablePan={false}
-        minDistance={0.5}
+        minDistance={0.7}
         maxDistance={0.7}
         enableDamping
         enabled={activeId === null || activeId === "view"}
