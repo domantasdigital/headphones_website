@@ -13,6 +13,13 @@ const Interactive3DView = ({ activeId }) => {
         <Environment preset="city" environmentIntensity={1.5} />
 
         <Headphones activeId={activeId} />
+        {/* Everything below is testing ----------*/}
+        {/* <ambientLight intensity={1} />
+        <mesh>
+          <boxGeometry args={[0.1, 0.1, 0.1]} />
+          <meshStandardMaterial color="orange" />
+        </mesh> */}
+        {/* Everything above is testing-------- */}
       </Canvas>
     </div>
   );

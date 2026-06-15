@@ -10,115 +10,67 @@ import { TouchIndicator } from "./TouchIndicator";
 import { PhoneModel } from "./PhoneModel";
 
 function Headphones({ activeId }) {
-  const { scene } = useGLTF("/models/HeadphonesModel5.glb");
+  const model = useGLTF("/models/HeadphonesModel5.glb");
 
-  // Center the model
   useEffect(() => {
-    const box = new THREE.Box3().setFromObject(scene);
+    if (!headphonesModelRef.current) return;
+    const box = new THREE.Box3().setFromObject(headphonesModelRef.current);
     const center = box.getCenter(new THREE.Vector3());
-    scene.position.sub(center); // shifts model so its center = world origin
-  }, [scene]);
+    headphonesModelRef.current.position.sub(center);
+  }, []);
 
   const headphonesModelRef = useRef();
   const cameraControlsRef = useRef();
 
-  //   destruycturing
   const { animate: animateCamera } = useCameraAnimation(cameraControlsRef);
   const { animate: animateModel } = useModelAnimation(headphonesModelRef);
 
-  // fires every time a button is clicked
   useEffect(() => {
     animateCamera(activeId);
     animateModel(activeId);
   }, [activeId]);
 
   const textures = useTexture({
-    // Cushions
     ausiniuCushionsAlbedo: "/headphoneTextures/AusiniuCushionsAlbedo.webp",
     ausiniuCushionsNormal: "/headphoneTextures/AusiniuCushionsNormal.webp",
-    // Plastikas (ear cup plastic)
     ausiniuPlastikasAlbedo: "/headphoneTextures/AusiniuPlastikasAlbedo.webp",
-    ausiniuPlastikasNormal: "/headphoneTextures/AusiniuPlastikasNormal.webp",
+
     ausiniuPlastikasRough: "/headphoneTextures/AusiniuPlastikasRough.webp",
-    // Headband
     headbandAlbedo: "/headphoneTextures/HeadbandAlbedo.webp",
     headbandNormal: "/headphoneTextures/HeadbandNormal.webp",
     headbandRoughness: "/headphoneTextures/HeadbandRoughness.webp",
-    // Misc plastikas
     miscPlastikasAlbedo: "/headphoneTextures/MiscPlastikasAlbedo.webp",
-    miscPlastikasMetalness: "/headphoneTextures/MiscPlastikasMetal.webp",
-    miscPlastikasRough: "/headphoneTextures/MicPlastikasRough.webp",
+    miscPlastikasRough: "/headphoneTextures/MiscPlastikasRough.webp",
     miscPlastikasMetal: "/headphoneTextures/MiscPlastikasMetal.webp",
-    // Wires
     wiresAlbedo: "/headphoneTextures/WiresAlbedo.webp",
   });
-
-  // Fix texture color space for albedo maps
-  const albedoMaps = [
+  // Fixing Tetures
+  const colorTextures = [
     textures.ausiniuCushionsAlbedo,
     textures.ausiniuPlastikasAlbedo,
     textures.headbandAlbedo,
-    textures.wiresAlbedo,
     textures.miscPlastikasAlbedo,
+    textures.wiresAlbedo,
   ];
-  albedoMaps.forEach((t) => {
+
+  const nonColorTextures = [
+    textures.ausiniuCushionsNormal,
+
+    textures.ausiniuPlastikasRough,
+    textures.headbandNormal,
+    textures.headbandRoughness,
+    textures.miscPlastikasMetal,
+    textures.miscPlastikasRough,
+  ];
+
+  colorTextures.forEach((t) => {
     t.flipY = false;
     t.colorSpace = THREE.SRGBColorSpace;
   });
 
-  // Fix texture color space for noncolor maps
-  const nonColorMaps = [
-    textures.ausiniuCushionsNormal,
-    textures.ausiniuPlastikasNormal,
-    textures.ausiniuPlastikasRough,
-    textures.headbandNormal,
-    textures.headbandRoughness,
-    textures.miscPlastikasRough,
-    textures.miscPlastikasMetal,
-  ];
-  nonColorMaps.forEach((t) => {
+  nonColorTextures.forEach((t) => {
     t.flipY = false;
     t.colorSpace = THREE.NoColorSpace;
-  });
-
-  scene.traverse((child) => {
-    if (!child.isMesh) return;
-    const name = child.name;
-
-    if (name.includes("Cushion") || name.includes("cushion")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.ausiniuCushionsAlbedo,
-        normalMap: textures.ausiniuCushionsNormal,
-        roughness: 0.9,
-      });
-    } else if (name.includes("Ausiniu") || name.includes("ausiniu")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.ausiniuPlastikasAlbedo,
-
-        roughnessMap: textures.ausiniuPlastikasRough,
-      });
-    } else if (name.includes("Metal") || name.includes("metal")) {
-      child.material = new THREE.MeshStandardMaterial({
-        roughness: 0.2,
-        metalness: 0.8,
-      });
-    } else if (name.includes("Headband") || name.includes("headband")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.headbandAlbedo,
-        normalMap: textures.headbandNormal,
-        roughnessMap: textures.headbandRoughness,
-      });
-    } else if (name.includes("Wire") || name.includes("wire")) {
-      child.material = new THREE.MeshStandardMaterial({
-        map: textures.wiresAlbedo,
-      });
-    } else if (name.includes("MiscPlastikas")) {
-      child.material = new THREE.MeshStandardMaterial({
-        color: "black",
-        roughnessMap: textures.miscPlastikasRough,
-        metalnessMap: textures.miscPlastikasMetal,
-      });
-    }
   });
 
   return (
@@ -134,7 +86,45 @@ function Headphones({ activeId }) {
       <TeslaBackground visible={activeId === "tesla"} />
       <TouchIndicator visible={activeId === "touch"} />
       <PhoneModel visible={activeId === "sound"} />
-      <primitive ref={headphonesModelRef} object={scene} />
+      {/* <primitive ref={headphonesModelRef} object={model.scene} /> */}
+      <group ref={headphonesModelRef}>
+        <mesh geometry={model.nodes.AusiniuCushions.geometry}>
+          <meshStandardMaterial
+            map={textures.ausiniuCushionsAlbedo}
+            normalMap={textures.ausiniuCushionsNormal}
+          />
+        </mesh>
+        <mesh geometry={model.nodes.AusiniuPlastikas.geometry}>
+          <meshStandardMaterial
+            map={textures.ausiniuPlastikasAlbedo}
+            roughnessMap={textures.ausiniuPlastikasRough}
+          />
+        </mesh>
+        <mesh geometry={model.nodes.Headband.geometry}>
+          <meshStandardMaterial
+            map={textures.headbandAlbedo}
+            normalMap={textures.headbandNormal}
+            roughnessMap={textures.headbandRoughness}
+          />
+        </mesh>
+        <mesh geometry={model.nodes.MetaloSujungimas.geometry}>
+          <meshStandardMaterial
+            color="#ffffff"
+            metalness={0.9}
+            roughness={0.5}
+          />
+        </mesh>
+        <mesh geometry={model.nodes.MiscPlastikas.geometry}>
+          <meshStandardMaterial
+            map={textures.miscPlastikasAlbedo}
+            roughnessMap={textures.miscPlastikasRough}
+            metalnessMap={textures.miscPlastikasMetal}
+          />
+        </mesh>
+        <mesh geometry={model.nodes.Wires.geometry}>
+          <meshStandardMaterial map={textures.wiresAlbedo} />
+        </mesh>
+      </group>
     </>
   );
 }

@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const IMAGES = [
-  { id: 0, src: "/Assets/waves.jpeg" },
-  { id: 1, src: "/Assets/dance.jpeg" },
-  { id: 2, src: "/Assets/double.jpeg" },
-  { id: 3, src: "/Assets/young.jpeg" },
-  { id: 4, src: "/Assets/stretch.jpeg" },
-  { id: 5, src: "/Assets/play.jpeg" },
+  { id: 0, src: "/Assets/waves.avif" },
+  { id: 1, src: "/Assets/dance.avif" },
+  { id: 2, src: "/Assets/double.avif" },
+  { id: 3, src: "/Assets/young.avif" },
+  { id: 4, src: "/Assets/stretch.avif" },
+  { id: 5, src: "/Assets/play.avif" },
 ];
 
 const DURATION = 7; // seconds
@@ -206,12 +206,12 @@ export default function ImageCarousel() {
             <img
               src={img.src}
               alt={img.label}
+              loading="lazy"
               className="w-full h-full object-cover"
             />
           </div>
         ))}
       </div>
-
       {/* Progress bar + pause/play */}
       <div className="flex items-center gap-3 mt-8">
         <div
@@ -242,9 +242,8 @@ export default function ImageCarousel() {
           )}
         </button>
       </div>
-
       {/* Dot indicators */}
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-4 mb-10">
         {IMAGES.map((_, i) => (
           <div
             key={i}

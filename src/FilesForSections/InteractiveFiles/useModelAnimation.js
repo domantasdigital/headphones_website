@@ -1,97 +1,87 @@
 import { gsap } from "gsap";
 
 function useModelAnimation(headphonesModelRef) {
-  // returns a promise that resolves when reset is done
-  const resetRotation = () =>
-    new Promise((resolve) => {
-      gsap.to(headphonesModelRef.current.rotation, {
-        x: 0,
-        y: 0,
-        z: 0,
-        duration: 1,
-        ease: "power2.inOut",
-        onComplete: resolve,
-      });
-    });
-
-  const killComfort = () => {
+  const killAll = () => {
+    // Kill the comfort timeline
     if (headphonesModelRef.current?._comfortTimeline) {
       headphonesModelRef.current._comfortTimeline.kill();
       headphonesModelRef.current._comfortTimeline = null;
     }
+    // Kill any other tweens acting on the rotation object
+    gsap.killTweensOf(headphonesModelRef.current?.rotation);
+  };
+
+  const resetRotation = () => {
+    // IMPORTANT: Return the promise
+    return new Promise((resolve) => {
+      gsap.to(headphonesModelRef.current.rotation, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: resolve,
+      });
+    });
   };
 
   const animations = {
     null: () => {
-      killComfort();
+      killAll();
       resetRotation();
     },
-
     view: () => {
-      if (headphonesModelRef.current?._comfortTimeline)
-        headphonesModelRef.current._comfortTimeline.kill();
-      // full spin then stop
+      killAll();
       gsap.to(headphonesModelRef.current.rotation, {
         y: Math.PI * 2,
         x: 0,
         duration: 1.5,
         ease: "power2.inOut",
         onComplete: () => {
-          if (headphonesModelRef.current) {
+          if (headphonesModelRef.current)
             headphonesModelRef.current.rotation.y = 0;
-          }
         },
       });
     },
-
     tesla: () => {
-      killComfort();
-      resetRotation();
-
-      // tilt to show driver face
+      killAll();
       gsap.to(headphonesModelRef.current.rotation, {
         y: Math.PI * 0.2,
         x: -Math.PI * 0.1,
-        duration: 2,
+        duration: 1, // Shortened for snappier response
         ease: "power2.inOut",
       });
     },
-
     touch: () => {
-      killComfort();
-      resetRotation();
-      // rotate to show right earcup
+      killAll();
       gsap.to(headphonesModelRef.current.rotation, {
         y: -Math.PI * 0.5,
         x: -Math.PI * 0.2,
-        duration: 2,
+        duration: 1,
         ease: "power2.inOut",
       });
     },
-
     comfort: () => {
-      resetRotation();
-
+      killAll();
       if (!headphonesModelRef.current) return;
 
       const tl = gsap.timeline();
-
       tl.to(headphonesModelRef.current.rotation, {
         x: Math.PI * 0.35,
         y: 0,
-        duration: 3,
+        duration: 2,
         ease: "power2.inOut",
       })
         .to(headphonesModelRef.current.rotation, {
           x: Math.PI * 0.3,
           y: 0.3,
-          duration: 2,
-          ease: "power1.inOut",
+          duration: 1.5,
+          ease: "power2.inOut",
         })
         .to(headphonesModelRef.current.rotation, {
           x: -Math.PI * 0.25,
           y: 0,
-          duration: 3,
+          duration: 2,
           ease: "power2.inOut",
         })
         .to(headphonesModelRef.current.rotation, {
@@ -103,11 +93,8 @@ function useModelAnimation(headphonesModelRef) {
 
       headphonesModelRef.current._comfortTimeline = tl;
     },
-
     sound: () => {
-      killComfort();
-      resetRotation();
-
+      killAll();
       gsap.to(headphonesModelRef.current.rotation, {
         y: Math.PI * 0.25,
         x: 0,
@@ -118,6 +105,7 @@ function useModelAnimation(headphonesModelRef) {
   };
 
   const animate = (activeId) => {
+    // Directly invoke the matching function
     const fn = animations[activeId] ?? animations[null];
     fn();
   };

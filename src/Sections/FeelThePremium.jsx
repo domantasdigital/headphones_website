@@ -8,15 +8,17 @@ gsap.registerPlugin(ScrollTrigger);
 const FeelThePremium = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
-  const feelPremiumVideoRef = useRef(null);
+
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const video = feelPremiumVideoRef.current;
+          const video = videoRef.current;
           video.preload = "auto";
           video.load();
+          video.play();
           observer.disconnect();
         }
       },
@@ -71,15 +73,14 @@ const FeelThePremium = () => {
           FEEL THE <br /> PREEEMIUM.
         </h1>
         <video
-          ref={feelPremiumVideoRef}
+          ref={videoRef}
           preload="none"
-          autoPlay
           muted
           loop
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="/Assets/feelPrem1.webm" type="video/webm" />
+          <source src="/Assets/feelPrem5.webm" type="video/webm" />
         </video>
       </div>
     </div>

@@ -200,78 +200,62 @@ export default function Faq() {
     { scope: sectionRef },
   );
 
-  useGSAP(() => {
-    gsap.fromTo(
-      "body",
-      { backgroundColor: "#0e0c0a" },
-      {
-        backgroundColor: "#faf8f7",
-        immediateRender: false,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 50%",
-          end: "top 10%",
-          scrub: 1,
-        },
-      },
-    );
-  });
-
   return (
-    <section ref={sectionRef} className="min-h-screen py-24 px-6">
-      <div className="max-w-3xl mx-auto flex flex-col flex-center">
-        {/* Header */}
-        <div ref={headerRef} className="mb-16">
-          <p className="text-orange-500 text-xs tracking-[0.3em] font-mono uppercase mb-4 text-center">
-            Amiron Wireless · FAQ
-          </p>
-          <h2 className="text-4xl md:text-5xl font-semibold  leading-tight tracking-tight text-center text-grey-900">
-            Any questions left?
-          </h2>
-          <p className="mt-4 text-grey-500 text-base max-w-lg leading-relaxed text-center">
-            Everything you need to know about beyerdynamic's high-end Tesla
-            Bluetooth headphones with sound personalisation.
-          </p>
-        </div>
+    <div style={{ backgroundColor: "#faf8f7" }}>
+      <section ref={sectionRef} className="min-h-screen py-24 px-6">
+        <div className="max-w-3xl mx-auto flex flex-col flex-center">
+          {/* Header */}
+          <div ref={headerRef} className="mb-16">
+            <p className="text-orange-500 text-xs tracking-[0.3em] font-mono uppercase mb-4 text-center">
+              Amiron Wireless · FAQ
+            </p>
+            <h2 className="text-4xl md:text-5xl font-semibold  leading-tight tracking-tight text-center text-grey-900">
+              Any questions left?
+            </h2>
+            <p className="mt-4 text-grey-500 text-base max-w-lg leading-relaxed text-center">
+              Everything you need to know about beyerdynamic's high-end Tesla
+              Bluetooth headphones with sound personalisation.
+            </p>
+          </div>
 
-        {/* FAQ List */}
-        <div ref={listRef}>
-          {faqs.map((faq, i) => (
-            <FaqItem key={faq.id} faq={faq} index={i} />
-          ))}
-        </div>
+          {/* FAQ List */}
+          <div ref={listRef}>
+            {faqs.map((faq, i) => (
+              <FaqItem key={faq.id} faq={faq} index={i} />
+            ))}
+          </div>
 
-        {/* Footer CTA */}
-        <div className="mt-16 pt-10 border-t border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <p className="text-stone-500 text-sm">
-            Still have a question? beyerdynamic's support team is here.
-          </p>
-          <a
-            href="https://europe.beyerdynamic.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 transition-colors duration-200 group"
-          >
-            Visit beyerdynamic.com
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
+          {/* Footer CTA */}
+          <div className="mt-16 pt-10 border-t border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <p className="text-stone-500 text-sm">
+              Still have a question? beyerdynamic's support team is here.
+            </p>
+            <a
+              href="https://europe.beyerdynamic.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 transition-colors duration-200 group"
             >
-              <path
-                d="M2 12L12 2M12 2H6M12 2V8"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
+              Visit beyerdynamic.com
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
+              >
+                <path
+                  d="M2 12L12 2M12 2H6M12 2V8"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

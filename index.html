@@ -5,37 +5,146 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amiron Wireless</title>
-    <!-- Montsterrat -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <!-- Geist -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Geist mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+
+    <style>
+      #html-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #0e0c0a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: monospace;
+      }
+      #html-preloader .label {
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #78716c;
+        margin-bottom: 12px;
+      }
+      #html-preloader .title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #f5f5f4;
+        letter-spacing: -0.02em;
+        margin-bottom: 40px;
+      }
+      #html-preloader .percent {
+        font-size: 64px;
+        font-weight: 600;
+        color: #f5f5f4;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      #html-preloader .percent-label {
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #f97316;
+        margin-bottom: 24px;
+      }
+      #html-preloader .bar-track {
+        width: 280px;
+        height: 1px;
+        background: #292524;
+        position: relative;
+        overflow: hidden;
+      }
+      #html-preloader .bar-fill {
+        position: absolute;
+        inset-y: 0;
+        left: 0;
+        width: 0%;
+        background: #f97316;
+        transition: width 0.3s ease;
+      }
+      #html-preloader .brand {
+        position: absolute;
+        top: 32px;
+        left: 32px;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #f97316;
+      }
+      #html-preloader .sub {
+        position: absolute;
+        bottom: 32px;
+        right: 32px;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #44403c;
+      }
+    </style>
   </head>
   <body>
+    <div id="html-preloader">
+      <span class="brand">beyerdynamic</span>
+      <p class="label">Experience is loading</p>
+      <h1 class="title">AMIRON WIRELESS</h1>
+      <div id="html-percent" class="percent">0</div>
+      <p class="percent-label">%</p>
+      <div class="bar-track">
+        <div class="bar-fill" id="html-bar"></div>
+      </div>
+      <span class="sub">Tesla Technology</span>
+    </div>
+
     <div id="root"></div>
+
+    <script>
+      let currentPct = 0;
+      const bar = document.getElementById("html-bar");
+      const num = document.getElementById("html-percent");
+
+      const setProgress = (pct) => {
+        currentPct = Math.round(Math.min(pct, 100));
+        if (bar) bar.style.width = currentPct + "%";
+        if (num) num.textContent = currentPct;
+      };
+
+      const animateTo = (target, duration, onComplete) => {
+        const from = currentPct;
+        const startTime = Date.now();
+        const tick = () => {
+          const t = Math.min((Date.now() - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 2);
+          setProgress(from + (target - from) * eased);
+          if (t < 1) requestAnimationFrame(tick);
+          else if (onComplete) onComplete();
+        };
+        requestAnimationFrame(tick);
+      };
+
+      // Crawl to 85% over 2s while React loads
+      animateTo(85, 2000);
+
+      window.__finishPreloader = () => {
+        animateTo(100, 500, () => {
+          setTimeout(() => {
+            const el = document.getElementById("html-preloader");
+            if (!el) return;
+            el.style.transition =
+              "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)";
+            el.style.transform = "translateY(-100%)";
+            setTimeout(() => el.remove(), 950);
+          }, 150);
+        });
+      };
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
