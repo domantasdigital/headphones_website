@@ -3,32 +3,57 @@ import { useRef, useEffect } from "react";
 
 const NextLevel = () => {
   const videoRef = useRef(null);
-  const sectionRef = useRef(null);
+  const hasLoadedRef = useRef(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const video = videoRef.current;
+    if (!video) return;
+
+    const loadVideo = () => {
+      if (hasLoadedRef.current) return;
+
+      const source = video.querySelector("source");
+
+      if (source?.dataset.src) {
+        source.src = source.dataset.src;
+      }
+
+      video.preload = "auto";
+      hasLoadedRef.current = true;
+      video.load();
+    };
+
+    const preloadObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const video = videoRef.current;
-          video.preload = "auto";
-          video.load();
-          video.play();
-          observer.disconnect();
+          loadVideo();
+          preloadObserver.disconnect();
         }
       },
-      { rootMargin: "100px" },
+      { rootMargin: "500px 0px" },
     );
 
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const playbackObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        loadVideo();
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+
+    preloadObserver.observe(video);
+    playbackObserver.observe(video);
+
+    return () => {
+      preloadObserver.disconnect();
+      playbackObserver.disconnect();
+    };
   }, []);
 
   return (
     <>
-      <div
-        ref={sectionRef}
-        className="  pt:10 flex flex-col items-center bg-grey-100"
-      >
+      <div className="  pt:10 flex flex-col items-center bg-grey-100">
         <h1 className="text-[30px] px-5 sm:text-[42px]   lg:text-[61px] font-extrabold text-center">
           READY TO GO <span className="text-orange-500">NEXT LEVEL?</span>
         </h1>
@@ -46,7 +71,7 @@ const NextLevel = () => {
         </div>
         <div className="w-[200%] md:w-[150%] lg:w-300 mt-10 overflow-hidden ">
           <video ref={videoRef} muted preload="none" playsInline>
-            <source src="/Assets/RTMAC.webm" type="video/webm" />
+            <source data-src="/Assets/RTMAC.webm" type="video/webm" />
           </video>
         </div>
       </div>
