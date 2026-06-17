@@ -16,7 +16,7 @@ export function PhoneModel({ visible }) {
     gsap.killTweensOf(modelRef.current.scale);
 
     if (visible) {
-      modelRef.current.position.set(0.1, -0.5, 0);
+      modelRef.current.position.set(0.1, -1, 0);
       modelRef.current.rotation.set(0, Math.PI * 2, 0); // start with back facing camera
       modelRef.current.scale.set(1.2, 1.2, 1.2);
 
