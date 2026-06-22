@@ -9,6 +9,7 @@ import Faq from "./Sections/Faq.jsx";
 import NextLevel from "./Sections/NextLevel.jsx";
 import Footer from "./Sections/Footer.jsx";
 import usePreloader from "./FilesForSections/PreloaderFiles/usePreloader.js";
+import HorizontalScroll from "./Sections/HorizontalScroll.jsx";
 
 const CRITICAL_IMAGES = [
   "/Assets/HeroVideo4.webm",
@@ -21,12 +22,14 @@ const CRITICAL_IMAGES = [
 
 const App = () => {
   usePreloader(CRITICAL_IMAGES);
+
   return (
-    <main className="mx-auto min-h-screen flex flex-col">
+    <main className="mx-auto min-h-screen">
       <NavBar />
       <Hero />
       <BentoGrid />
       <FeelThePremium />
+      <HorizontalScroll />
       <Tesla />
       <Interactive />
       <ImageCarousel />
