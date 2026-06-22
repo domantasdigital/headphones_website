@@ -9,6 +9,7 @@ import Faq from "./Sections/Faq.jsx";
 import NextLevel from "./Sections/NextLevel.jsx";
 import Footer from "./Sections/Footer.jsx";
 import usePreloader from "./FilesForSections/PreloaderFiles/usePreloader.js";
+import HorizontalScroll from "./Sections/HorizontalScroll.jsx";
 
 const CRITICAL_IMAGES = [
   "/Assets/HeroVideo4.webm",
@@ -27,6 +28,7 @@ const App = () => {
       <Hero />
       <BentoGrid />
       <FeelThePremium />
+      <HorizontalScroll />
       <Tesla />
       <Interactive />
       <ImageCarousel />
