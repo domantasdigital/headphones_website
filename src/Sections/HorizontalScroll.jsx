@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const HORIZONTAL_SCROLL_PRELOAD_EXTRA = 1000;
+export const HORIZONTAL_SCROLL_VERTICAL_PRELOAD_EXTRA = 3000;
 export const HORIZONTAL_SCROLL_TEXT_SELECTOR = "[data-horizontal-scroll-text]";
 
 const HorizontalScroll = () => {
@@ -19,6 +20,7 @@ const HorizontalScroll = () => {
 
       if (!section || !text) return undefined;
 
+      const mm = gsap.matchMedia();
       const getMoveDistance = () =>
         Math.max(0, text.scrollWidth - window.innerWidth);
       const getScrollDistance = () => Math.max(1, getMoveDistance());
@@ -29,24 +31,27 @@ const HorizontalScroll = () => {
         if (!isKilled) ScrollTrigger.refresh();
       });
 
-      gsap.to(text, {
-        x: () => -getMoveDistance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${getScrollDistance()}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(text, {
+          x: () => -getMoveDistance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${getScrollDistance()}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
       });
 
       return () => {
         isKilled = true;
         cancelAnimationFrame(refreshFrame);
+        mm.revert();
       };
     },
     { scope: sectionRef },
@@ -55,7 +60,7 @@ const HorizontalScroll = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen items-center overflow-hidden bg-[#0e0c0a] text-grey-100"
+      className="relative hidden h-screen items-center overflow-hidden bg-[#0e0c0a] text-grey-100 md:flex"
     >
       <div className="pointer-events-none absolute inset-0 " />
 

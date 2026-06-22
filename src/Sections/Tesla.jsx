@@ -6,6 +6,7 @@ import Button from "../Components/Button";
 import TeslaModal from "../Components/TeslaModal";
 import {
   HORIZONTAL_SCROLL_PRELOAD_EXTRA,
+  HORIZONTAL_SCROLL_VERTICAL_PRELOAD_EXTRA,
   HORIZONTAL_SCROLL_TEXT_SELECTOR,
 } from "./HorizontalScroll";
 
@@ -53,9 +54,13 @@ const Tesla = () => {
     };
 
     const getRootMargin = () => {
-      const margin = Math.ceil(
-        getHorizontalScrollDistance() + HORIZONTAL_SCROLL_PRELOAD_EXTRA,
-      );
+      const isVerticalDevice =
+        window.matchMedia("(orientation: portrait)").matches ||
+        window.innerWidth < 1024;
+      const preloadExtra = isVerticalDevice
+        ? HORIZONTAL_SCROLL_VERTICAL_PRELOAD_EXTRA
+        : HORIZONTAL_SCROLL_PRELOAD_EXTRA;
+      const margin = Math.ceil(getHorizontalScrollDistance() + preloadExtra);
 
       return `0px 0px ${margin}px 0px`;
     };
@@ -107,7 +112,7 @@ const Tesla = () => {
       {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: headingRef.current,
@@ -147,7 +152,7 @@ const Tesla = () => {
       .timeline({
         scrollTrigger: {
           trigger: headingRef.current,
-          start: "top 20%",
+          start: "top 30%",
           toggleActions: "play none none none",
         },
       })
@@ -156,7 +161,7 @@ const Tesla = () => {
         opacity: 1,
         scale: 1,
         duration: 0.5,
-        delay: 5,
+        delay: 2,
         ease: "power2.out",
       })
       .to(btn, {
@@ -173,16 +178,16 @@ const Tesla = () => {
   });
 
   return (
-    <div ref={sectionRef} className=" lg:min-h-screen bg-[#0e0c0a]">
+    <div ref={sectionRef} className=" lg:min-h-screen bg-[#0e0c0a] lg:mt-70">
       {mounted && <TeslaModal isOpen={modalOpen} onClose={handleClose} />}
       <div className="  max-w-480 mx-auto  lg:min-h-screen">
         <h1
           ref={headingRef}
-          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px] mt-22.5 ml-5 sm:ml-10 md:ml-20 lg:ml-25  mb-12 "
+          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px]  ml-5 sm:ml-10 md:ml-20 lg:ml-25  mb-12 "
         >
           BEHOLD THE <br /> TESLA TECHNOLOGY.
         </h1>
-        <div className="relative aspect-video w-full overflow-hidden lg:-translate-y-15 mb-4">
+        <div className="relative aspect-video w-full overflow-hidden  ">
           <video
             ref={videoRef}
             preload="none"
