@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const refreshScrollTrigger = () => ScrollTrigger.refresh();
+
 const FeelThePremium = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
@@ -18,7 +20,7 @@ const FeelThePremium = () => {
           const video = videoRef.current;
           video.preload = "auto";
           video.load();
-          video.play();
+          video.play().catch(() => {});
           observer.disconnect();
         }
       },
@@ -79,23 +81,27 @@ const FeelThePremium = () => {
 
   return (
     <div className="  bg-[#0e0c0a]">
-      <div ref={sectionRef} className="  max-w-425 mx-auto ">
+      <div ref={sectionRef} className="  max-w-425 mx-auto pt-5 mt-20 ">
         <h1
           ref={headingRef}
-          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px] mt-22.5 ml-5 sm:ml-10 md:ml-20 lg:ml-25 mb-2 "
+          className="text-grey-100 text-[25px] sm:text-[40px]  md:text-[60px] lg:text-[80px] mt-10 ml-5 sm:ml-10 md:ml-20 lg:ml-25 mb-2 "
         >
           FEEL THE <br /> PREEEMIUM.
         </h1>
-        <video
-          ref={videoRef}
-          preload="none"
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/Assets/feelPrem5.webm" type="video/webm" />
-        </video>
+        <div className="relative aspect-video w-full overflow-hidden">
+          <video
+            ref={videoRef}
+            preload="none"
+            muted
+            loop
+            playsInline
+            onLoadedMetadata={refreshScrollTrigger}
+            onLoadedData={refreshScrollTrigger}
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src="/Assets/feelPrem5.webm" type="video/webm" />
+          </video>
+        </div>
       </div>
     </div>
   );

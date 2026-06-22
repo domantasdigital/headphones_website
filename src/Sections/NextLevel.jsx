@@ -1,5 +1,8 @@
 import Button from "../Components/Button.jsx";
 import { useRef, useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const refreshScrollTrigger = () => ScrollTrigger.refresh();
 
 const NextLevel = () => {
   const videoRef = useRef(null);
@@ -69,8 +72,16 @@ const NextLevel = () => {
             View pricing options
           </a>
         </div>
-        <div className="w-[200%] md:w-[150%] lg:w-300 mt-10 overflow-hidden ">
-          <video ref={videoRef} muted preload="none" playsInline>
+        <div className="relative w-[200%] md:w-[150%] lg:w-300 mt-10 aspect-video overflow-hidden ">
+          <video
+            ref={videoRef}
+            muted
+            preload="none"
+            playsInline
+            onLoadedMetadata={refreshScrollTrigger}
+            onLoadedData={refreshScrollTrigger}
+            className="absolute inset-0 h-full w-full object-cover"
+          >
             <source data-src="/Assets/RTMAC.webm" type="video/webm" />
           </video>
         </div>

@@ -3,57 +3,71 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+export const HORIZONTAL_SCROLL_PRELOAD_EXTRA = 1000;
+export const HORIZONTAL_SCROLL_TEXT_SELECTOR = "[data-horizontal-scroll-text]";
 
 const HorizontalScroll = () => {
-  const wrapperRef = useRef(null);
+  const sectionRef = useRef(null);
   const textRef = useRef(null);
 
   useGSAP(
     () => {
+      const section = sectionRef.current;
       const text = textRef.current;
 
-      function getScrollAmount() {
-        const textWidth = text.scrollWidth;
-        return -(textWidth - window.innerWidth);
-      }
+      if (!section || !text) return undefined;
 
-      const tween = gsap.to(text, {
-        x: getScrollAmount,
-        duration: 3,
+      const getMoveDistance = () =>
+        Math.max(0, text.scrollWidth - window.innerWidth);
+      const getScrollDistance = () => Math.max(1, getMoveDistance());
+      let isKilled = false;
+      const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+
+      document.fonts?.ready.then(() => {
+        if (!isKilled) ScrollTrigger.refresh();
+      });
+
+      gsap.to(text, {
+        x: () => -getMoveDistance(),
         ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${getScrollDistance()}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
       });
 
-      ScrollTrigger.create({
-        trigger: wrapperRef.current,
-        start: "top 20%",
-        end: () => `+=${getScrollAmount() * -1 + window.innerWidth * 0.08}`,
-        pin: true,
-        pinSpacing: true,
-        animation: tween,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      });
+      return () => {
+        isKilled = true;
+        cancelAnimationFrame(refreshFrame);
+      };
     },
-    { scope: wrapperRef },
+    { scope: sectionRef },
   );
 
   return (
     <section
-      ref={wrapperRef}
-      className="h-screen overflow-hidden bg-[#0e0c0a] flex items-center"
+      ref={sectionRef}
+      className="relative flex h-screen items-center overflow-hidden bg-[#0e0c0a] text-grey-100"
     >
-      <h2
+      <div className="pointer-events-none absolute inset-0 " />
+
+      <div
         ref={textRef}
-        className="w-fit flex flex-nowrap whitespace-nowrap text-[30vw] leading-none font-black tracking-[-0.08em] text-grey-100"
+        data-horizontal-scroll-text
+        className="relative z-10 w-max pl-[5vw] pr-[20vw]"
       >
-        <span className="flex-shrink-0 px-[0.15em]">AMIRON</span>
-        <span className="flex-shrink-0 px-[0.15em] text-orange-500">
-          WIRELESS
-        </span>
-        <span className="flex-shrink-0 px-[0.15em]">HEADPHONES</span>
-      </h2>
+        <h1 className="whitespace-nowrap text-[clamp(72px,18vw,400px)] font-black leading-[0.82] tracking-[-0.08em] text-grey-100">
+          AMIRON <span className="text-orange-500">WIRELESS</span> HEADPHONES
+        </h1>
+      </div>
     </section>
   );
 };
