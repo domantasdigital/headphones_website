@@ -23,7 +23,7 @@ const CRITICAL_IMAGES = [
 const App = () => {
   usePreloader(CRITICAL_IMAGES);
   return (
-    <main className="mx-auto min-h-screen flex flex-col">
+    <main className="mx-auto min-h-screen">
       <NavBar />
       <Hero />
       <BentoGrid />
